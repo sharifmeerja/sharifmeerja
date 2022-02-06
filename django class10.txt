@@ -1,0 +1,404 @@
+	Model Relationships
+	---------------------
+In RDBMS,we can maintain the relationships between the tables in 3-ways,they are
+
+	1). One-to-one relationship
+	2). Many-to-one relationship
+	3). Many-to-many relationships
+	
+
+One-to-one relationship:
+----------------------- 
+	We can define one-to-one relationship we use django.db.models.OneToOneField
+
+	Ex:- class profile(models.Model):
+			----------
+			----------
+			----------
+			User=models.OneToOneField(User,on_delete=models.CASCADE)
+
+
+Many-to-one relationship:
+-----------------------------
+	We can define many-to-one relationship we use django.db.models.ForeignKey
+
+	ForeignKey requires a positional argument the class to which the model is related.
+
+Syntax:
+	class Post(models.Model):
+		----------
+		----------
+		----------
+		author=models.ForeignKey(User,related_name=blog_posts')
+
+	This means an author may have multiple (or) many posts.
+
+Many-to-many relationships:
+---------------------------
+	We can define many-to-many relationship we use django.db.models.ManyToManyField
+
+	Ex:- class post(models.Model):
+			-----------
+			----------
+			-----------
+			Likes=models.ManyToManyField(User,related_name='likes')
+
+	This means a post has multiple likes from multiple authors.
+
+ex1:
+---
+create django project by using one to one model relationship?
+
+step1:
+----
+to create a project
+
+	django-admin startproject proj20
+
+step2:
+------
+goto project location and to create an application in our project.
+
+	cd proj20
+
+	python manage.py startapp app20
+
+step3:
+-----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	----------
+INSTALLED_APPS = [
+    
+    'app20'
+]
+
+step4:
+-----
+to configure the database related settings in the settings.py file of the project.
+
+	settings.py
+	-----------
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+step5:
+-----
+to define a models in the models.py file of the application.
+
+	models.py
+	---------
+from django.db import models
+
+# Create your models here.
+class Driver(models.Model):
+    name=models.CharField(max_length=10)
+    add=models.CharField(max_length=20)
+    def __str__(self):
+        return "%s : %s"%(self.name,self.add)
+class Car(models.Model):
+    brand=models.CharField(max_length=10)
+    model=models.CharField(max_length=10)
+    ctype=models.CharField(max_length=10)
+    driver=models.OneToOneField(Driver,on_delete=models.CASCADE)
+    def __str__(self):
+        return "%s : %s : %s : %s"%(self.brand,self.model,self.ctype,self.driver)
+
+
+step6:
+-----
+to check the errors in our model
+
+	python manage.py check
+
+step7:
+----
+to create a models
+
+	python manage.py makemigrations
+
+step8:
+----
+to generate the tables for our models
+
+	python manage.py migrate
+
+step9:
+----
+goto the python shell and to create a the objects
+
+	python manage.py shell
+
+
+>>> from app20.models import Car,Driver
+>>> d1=Driver(name="siva",add="hyd")
+>>> d1.save()
+>>> d1
+<Driver: siva : hyd>
+>>> d2=Driver(name="rama",add="pune")
+>>> d2.save()
+>>> d2
+<Driver: rama : pune>
+
+>>> c1=Car(brand="tata",model="alto",ctype="disel",driver=d1)
+>>> c1.save()
+>>> c1
+<Car: tata : alto : disel : siva : hyd>
+>>> c2=Car(brand="kia",model="celtos",ctype="petrol",driver=d2)
+>>> c2.save()
+>>> c2
+<Car: kia : celtos : petrol : rama : pune>
+>>> c3=Car(brand="toyata",model="toyata-innova",ctype="disel",
+driver=d2)
+>>> c3.save()
+django.db.utils.IntegrityError: UNIQUE constraint failed: app20_car.driver_id
+
+ex2:
+---
+create django project by using one to many model relationship?
+
+step1:
+----
+to create a project
+
+	django-admin startproject proj21
+
+step2:
+------
+goto project location and to create an application in our project.
+
+	cd proj21
+
+	python manage.py startapp app21
+
+step3:
+-----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	----------
+INSTALLED_APPS = [
+    
+    'app21'
+]
+
+
+step4:
+-----
+to configure the database related settings in the settings.py file of the project.
+
+	settings.py
+	-----------
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+step5:
+-----
+to define a models in the models.py file of the application.
+
+	models.py
+	---------
+from django.db import models
+
+# Create your models here.
+class Owner(models.Model):
+    name=models.CharField(max_length=10)
+    add=models.CharField(max_length=20)
+    def __str__(self):
+        return "%s : %s"%(self.name,self.add)
+class Car(models.Model):
+    brand=models.CharField(max_length=10)
+    model=models.CharField(max_length=10)
+    ctype=models.CharField(max_length=10)
+    owner=models.ForeignKey(Owner,on_delete=models.CASCADE)
+    def __str__(self):
+        return "%s : %s : %s : %s"%(self.brand,self.model,self.ctype,self.owner)
+
+step6:
+-----
+to check the errors in our model
+
+	python manage.py check
+
+step7:
+----
+to create a models
+
+	python manage.py makemigrations
+
+step8:
+----
+to generate the tables for our models
+
+	python manage.py migrate
+
+step9:
+----
+goto the python shell and to create a the objects
+
+	python manage.py shell
+
+
+>>> from app21.models import Owner,Car
+>>> own1=Owner(name="siva",add="hyd")
+>>> own1.save()
+>>> own1
+<Owner: siva : hyd>
+>>> own2=Owner(name="rama",add="pune")
+>>> own2.save()
+>>> own2
+<Owner: rama : pune>
+>>> c1=Car(brand="tata",model="alto",ctype="disel",owner=own1)
+>>> c1.save()
+>>> c1
+<Car: tata : alto : disel : siva : hyd>
+>>> c2=Car(brand="kia",model="celtos",ctype="petrol",owner=own2)
+>>> c2.save()
+>>> c2
+<Car: kia : celtos : petrol : rama : pune>
+>>> c3=Car(brand="toyata",model="toyata-innova",ctype="disel",
+owner=own1)
+>>> c3.save()
+>>> c3
+<Car: toyata : toyata-innova : disel : siva : hyd>
+
+
+ex3:
+---
+create django project by using many to many model relationship?
+
+step1:
+----
+to create a project
+
+	django-admin startproject proj22
+
+step2:
+------
+goto project location and to create an application in our project.
+
+	cd proj22
+
+	python manage.py startapp app22
+
+step3:
+-----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	----------
+INSTALLED_APPS = [
+    
+    'app22'
+]
+
+step4:
+-----
+to configure the database related settings in the settings.py file of the project.
+
+	settings.py
+	-----------
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+step5:
+-----
+to define a models in the models.py file of the application.
+
+	models.py
+	---------
+from django.db import models
+
+# Create your models here.
+class Thief(models.Model):
+    name=models.CharField(max_length=10)    
+    def __str__(self):
+        return "%s"%(self.name)
+class Car(models.Model):
+    brand=models.CharField(max_length=10)
+    model=models.CharField(max_length=10)
+    ctype=models.CharField(max_length=10)
+    thief=models.ManyToManyField(Thief)
+    def __str__(self):
+        return "%s : %s : %s : %s"%(self.brand,self.model,self.ctype,self.thief)
+
+
+step6:
+-----
+to check the errors in our model
+
+	python manage.py check
+
+step7:
+----
+to create a models
+
+	python manage.py makemigrations
+
+step8:
+----
+to generate the tables for our models
+
+	python manage.py migrate
+
+step9:
+----
+goto the python shell and to create a the objects
+
+	python manage.py shell
+
+
+>>> from app22.models import Car,Thief
+>>> t1=Thief(name="siva")
+>>> t1.save()
+>>> t1
+<Thief: siva>
+>>> t2=Thief(name="rama")
+>>> t2.save()
+>>> t2
+<Thief: rama>
+>>> t3=Thief(name="krishna")
+>>> t3.save()
+>>> t3
+<Thief: krishna>
+
+>>>c1=Car(brand="tata",model="alto",ctype="disel",thief=t1)
+TypeError: Direct assignment to the forward side of a many-to-many
+
+>>> c1=Car(brand="tata",model="alto",ctype="disel")
+>>> c1.save()
+>>> c1
+<Car: tata : alto : disel : app22.Thief.None>
+
+>>> c1.thief.add(t1)
+>>> c1.save()
+
+>>> c2=Car(brand="kia",model="celtos",ctype="petrol")
+>>> c2.save()
+>>> c2
+<Car: kia : celtos : petrol : app22.Thief.None>
+
+>>> c3=Car(brand="toyata",model="toyata-innova",ctype="disel")
+>>> c3.save()
+>>> c3
+<Car: toyata : toyata-innova : disel : app22.Thief.None>
+
+>>> c2.thief.add(t2)
+>>> c2.thief.add(t3)
+>>> c2.save()
+
+>>> c3.thief.add(t1,t2,t3)
+>>> c3.save()

@@ -1,0 +1,367 @@
+assignment:
+-----------
+create a html page and to display the Hello world message on the browser by using heading tag with style attributes?
+
+hello world  --> background - red
+                 text color - blue
+                 alignment  - left
+
+hello world  --> background - yellow
+                 text color - red
+                 alignment  - center
+
+hello world  --> background - orange
+                 text color - green
+                 alignment  - right
+
+
+	demo1.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h1 style="color:blue;background:red;font-size:30px;
+font-family:elephant;font-style:italic;width:200px;">Hello world</h1>
+<h1 style="color:red;background:yellow;font-size:30px;
+font-family:elephant;
+font-style:italic;width:200px;margin-left:500px">Hello world</h1>
+<h1 style="color:green;background:orange;font-size:30px;
+font-family:elephant;font-style:italic;width:200px;margin-left:1000px">Hello world</h1>
+</body>
+</html>
+
+working with paragraph tag:
+--------------------------
+	<p>		</p>
+
+ex:
+---
+	demo2.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<p>python is a general purpose,high-level,interpreted,interactive,dynamically typed,garbage collected,modular,procedure oriented,object oriented and scripting programming language.</p>
+<p>html is a markup language,which is used to build wrbpages and it will provides structure of the webpages.</p>
+</body>
+</html>
+
+ex3:
+---
+	demo3.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h1><p style="color:red">python is a general purpose,high-level,interpreted,interactive,dynamically typed,garbage collected,modular,procedure oriented,object oriented and scripting programming language.</p>
+<p style="color:blue">html is a markup language,which is used to build wrbpages and it will provides structure of the webpages.</p></h1>
+</body>
+</html>
+
+how to break the line?
+---------------------
+	we can break the line by using <br> tag
+
+ex:
+--
+	demo4.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h1>python is a General Purpose programming language.<br>python is a High-level Programming Language.<br>python is a Multi-paradigm.<br>python suspporting both interactive and batch mode.</h1>
+</body>
+</html>
+
+format the text:
+---------------
+	demo4.txt
+	--------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h1><i>python</i> is a <u>General Purpose</u> programming language.<br><i>python</i> is a <strike>High-level</strike> Programming Language.<br><hr>python <sup>is</sup> a Multi-paradigm.<br>python <sub>suspporting</sub> both <small>interactive</small> and <big>batch</big> mode.</h1>
+</body>
+</html>
+
+working with horizontal ruler(hr) tag
+---------------------------------------
+	<hr>
+ex:
+---
+ 	demo5.html
+	-----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h1>hai<br><hr>siva krishna<br><hr>good evening<br><hr>bye</h1>
+</body>
+</html>
+
+working with anchor tag:
+------------------------
+	<a>	</a>
+
+ex:
+---
+	demo6.html
+	-----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h3><a href="https://www.python.org/">Python</a></h3>
+<br>
+<h3><a target="_blank" href="https://sivapython.blogspot.com/">MyBlog</a></h3>
+<br>
+<h3><a href="welcome.html">welcome</a></h3>
+</body>
+</html>
+
+	welcome.html
+	-----------
+<!DOCTYPE html>
+<html>
+<h1>welcome to Vagdevi technologies</h1>
+</html>
+
+working with image tag:
+----------------------
+	<img>	
+
+ex:
+---
+	demo7.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<img src="tim.png" />
+
+<img src="g:\\pylogo.png" alt="pythonlogo" align="right" width="300px" height="200px">
+</body>
+</html>
+
+createing a hyper links with images:
+-------------------------------------
+ex:
+---
+	demo8.html
+	-----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<a href="https://www.python.org/">
+<img src="g:\\pylogo.png"></a>
+<br><br>
+<a href="https://www.python.org/">
+Python</a>
+</body>
+</html>
+
+working with ordered list tag:
+-----------------------------
+	<ol>	</ol>
+
+ex:
+--
+	demo9.html
+	--------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h1>Types Of Tea's</h1>
+<h2><ol>
+   <li>Normal Tea</li>
+   <li>Lemon Tea</li>
+   <li>Black Tea</li>
+   <li>Ginger Tea</li>
+</ol></h2>
+<hr>
+<h1>Types Of Tea's</h1>
+<h2><ol type="a">
+   <li>Normal Tea</li>
+   <li>Lemon Tea</li>
+   <li>Black Tea</li>
+   <li>Ginger Tea</li>
+</ol></h2>
+<hr>
+<h1>Types Of Tea's</h1>
+<h2><ol type="A">
+   <li>Normal Tea</li>
+   <li>Lemon Tea</li>
+   <li>Black Tea</li>
+   <li>Ginger Tea</li>
+</ol></h2>
+<hr>
+<h1>Types Of Tea's</h1>
+<h2><ol type="i">
+   <li>Normal Tea</li>
+   <li>Lemon Tea</li>
+   <li>Black Tea</li>
+   <li>Ginger Tea</li>
+</ol></h2>
+<hr>
+<h1>Types Of Tea's</h1>
+<h2><ol type="I">
+   <li>Normal Tea</li>
+   <li>Lemon Tea</li>
+   <li>Black Tea</li>
+   <li>Ginger Tea</li>
+</ol></h2>
+</body>
+</html>
+
+working with unordered list tag:
+-----------------------------
+	<ul>	</ul>
+
+ex:
+--
+	demo10.html
+	-----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h1>Types Of Tea's</h1>
+<h2><ul>
+   <li>Normal Tea</li>
+   <li>Lemon Tea</li>
+   <li>Black Tea</li>
+   <li>Ginger Tea</li>
+</ul></h2>
+<hr>
+<h1>Types Of Tea's</h1>
+<h2><ul type="square">
+   <li>Normal Tea</li>
+   <li>Lemon Tea</li>
+   <li>Black Tea</li>
+   <li>Ginger Tea</li>
+</ul></h2>
+<hr>
+<h1>Types Of Tea's</h1>
+<h2><ul type="circle">
+   <li>Normal Tea</li>
+   <li>Lemon Tea</li>
+   <li>Black Tea</li>
+   <li>Ginger Tea</li>
+</ul></h2>
+</body>
+</html>
+
+how to rotating the text?
+------------------------
+	<marquee>	</marquee>
+
+ex:
+---
+	demo11.html
+	-----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<marquee><h2 style="color:red">click here me</h2></marquee>
+<br><br>
+<marquee direction="right"><h2 style="color:blue">click here me</h2></marquee>
+<br><br>
+<marquee direction="up"><h2 style="color:orange">click here me</h2></marquee>
+<marquee direction="down"><h2 style="color:purple;text-align:right">click here me</h2></marquee>
+</body>
+</html>
+
+ex:
+---
+rotating the text with hyperlink
+
+	demo12.html
+	-----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<a href="https://sivapython.blogspot.com/"><marquee><h2 style="color:red">click here me</h2></marquee></a>
+</body>
+</html>
+
+creating a tables:
+------------------
+	<table>		
+	    <tr>
+               <th>
+               </th>
+	    </tr>
+	    <tr>
+               <td>
+               </td>
+	    </tr>
+	</table>
+
+ex:
+--
+	demo13.html
+	-----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body bgcolor="orange">
+<table border="3" width="50%" bgcolor="0x45645">
+<tr>
+   <th>Eid</th>
+   <th>Ename</th>
+   <th>Salary</th>
+   <th>Dno</th>
+</tr>
+<tr>
+   <td>101</td>
+   <td>siva</td>
+   <td>2000</td>
+   <td>10</td>
+</tr>
+<tr>
+   <td>102</td>
+   <td>rama</td>
+   <td>3000</td>
+   <td>20</td>
+</tr>
+<tr>
+   <td>103</td>
+   <td>krishna</td>
+   <td>5000</td>
+   <td>30</td>
+</tr>
+</table>
+</body>
+</html>
+
+assignment-1:
+------------
+to display the image at center
+
+assignment-2:
+-------------
+write a html program to display our profile/resume/curriculum vita on the browser?

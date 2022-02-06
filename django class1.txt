@@ -1,0 +1,441 @@
+			Django
+			------
+Django is a Python Related High-level web application Development Framework.
+
+it makes easier to build the better web applications with less code and more quickly(rapid development).
+
+Django follows MVT(Model-View-Template) design pattern.
+
+History of Django?
+------------------
+	Django was developed by adrian Holovathy and simion wilison in the year of 2003 but officially announce to the public as a opensource project in the year of 2005.
+
+	the name Django was Derived from the famous Guitarist "Django Reinhardt".
+
+	Django is a free and open source,it is maintained by DSF(Django Software Foundation) Team.
+
+	www.djangoproject.com
+
+advantages of Django?
+---------------------
+1).Less Code
+2).Fatser Development
+3).fully loaded
+4).Secure
+5).scalable
+6).versatile
+
+users of the Django?
+--------------------
+instgram
+knight foundation
+washington DC news
+Mozilla
+pintrest
+netflix
+Nasa
+disqus
+bitbucket
+...
+...etc.,
+
+Features of Django:
+--------------------
+Django follows MVT design pattern
+django follows ORM(Object Relational Mapper)
+Django provides builtin database is called sqlite3
+Django provides builtin webserver is called DDS(Django Development Server)
+Django provides admin interface
+Django provides documentation
+we can custmoze the django admin pannel
+
+django Architecture:
+--------------------
+whenever the end user to send the request to the server,the dajngo frame take that request and forwarding to the url dispatcher.
+
+url dispatcher is a program that verify requested url is valid or not.
+
+we are implement the urls by using regular expressions.
+
+we can implement all the urls in the urls.py file of the project.
+
+our requested url is not matching of any another urls in urls.py file to rasie webpage is not available(404 error) otherwise then control will goto views.
+
+a view is a python function or python class,it takes the request from the end user,process that request and give back the response to the end user.
+
+we can implement all the views in the views.py file of the application in our project.
+
+at the time of processing the client/end-user request the view can be communicating database with the help of models.
+
+a model is a python class,which is used to represent the database related logics.
+
+we can implement all the models in our application in the models.py of the application.
+
+after process the client request the view can transfer the data to the enduser through the templates.
+
+template is a html file which can include python code with the help of some template languages.
+
+template langauge is a special language which is used to achive the html code reusability.
+
+the template languages are DTL,Jinja2
+
+finally the templates give the results to the enduser.
+
+note:
+----
+we can take any web application,that web application contains 3-types of logics,they are
+
+	1).Presentation logics
+
+	2).Bussiness logics
+
+	3).Database logics
+
+MVT(Model View Template)
+----
+Model: 
+	Model is a python class,which is used to represent the database related logics.
+
+	we can implement the models in the models.py file
+
+View:
+	a View is a Python function or class,it takes the request from the end user,process that request and give back the response to the end user.
+
+	view is used to represent the business logics
+
+Template:
+	a Template is a Html file,which is used to represent the presentation logics.
+
+
+Django Environment SetUp:
+-------------------------
+1).python
+2).IDE's
+3).virtual environment
+4).Django
+
+what is pip?
+-----------
+pip(python installation package) is a python package manager to install or uninstall 3rd party packages in python.
+
+	pip install packagename
+
+	pip uninstall packagename
+
+we can access the pip on any location of our computer first we need to set that path for scripts.
+(by default pip is available in the scripts folder)
+
+virtual environment:
+--------------------
+	virtual environment is a isolated python environment.
+
+	we can create a virtual environments by using "virtualenv"
+
+what is virtualenv?
+-------------------
+	virtualenv is a tool to create virtual environments.
+
+how to install virtualenv?
+--------------------------
+	pip install virtualenv
+
+how to create our own virtual environments?
+-------------------------------------------
+	virtaulenv ourvirtualenvironmentname
+
+ex:
+---
+	virtualenv myvenv
+
+how to activate the our own virtual environment?
+------------------------------------------------
+	ourvirtualenvironmentname\scripts\activate
+
+ex:
+---
+	myvenv\scripts\activate
+
+how to deactivate the our own virtual environment?
+--------------------------------------------------
+	ourvirtualenvironmentname\scripts\deactivate
+
+ex:
+---
+	myvenv\scripts\deactivate
+
+how to install django?
+----------------------
+	pip install django==versionnumber
+
+		(or)
+
+	pip install django
+
+how to check django successfully installed or not?
+--------------------------------------------------
+	django-admin
+
+how to get the django version?
+------------------------------
+	django-admin --version
+
+(myvenv) F:\vagdevi6pmdjango>django-admin --version
+3.2.9
+
+
+how to create a Django Project?
+-----------------------------
+	we can create a django project by using following command
+
+	django-admin startproject projectname
+
+ex:
+---
+(myvenv) F:\vagdevi6pmdjango>django-admin startproject proj1
+
+
+	proj1
+	  |---> proj1
+          |       |---> __init__.py
+	  |       |---> settings.py
+	  |       |---> urls.py
+	  |       |---> wsgi.py
+          |       |---> asgi.py
+          |---> manage.py
+
+
+__init__.py : 
+	we can treat any package(folder/directory) as a python            package in that case to required __init__.py
+
+settings.py : 
+	we can configure all the settings of our project in the           settings.py file.
+
+	the settings like application settings
+			  template settings
+			  database settings
+			  static files
+			  session,...etc.,
+
+urls.py : 
+	to configure the url patterns for our views in the 	urls.py file.
+
+wsgi.py : 
+	webserveice gateway interface,it is used to enable the 	  	synchronus communication between our web application and 	web server.
+
+asgi.py : 
+	Asynchronus gateway interface,it is used to enable the            asynchronus communication between our web application 		and web server.
+
+
+manage.py :
+	manage.py file is a one command-line utility,to provides 	some commads to perform the some operations like
+
+		startapp
+		migrate
+		makemigrations
+		check
+		shell
+		runserver,....,etc.,
+
+
+how to create an application in our project?
+-----------------------------------------
+
+	goto project location and to create an application by using following command
+
+	cd projectname
+
+ex:
+---
+(myvenv) F:\vagdevi6pmdjango>cd proj1
+
+
+	python manage.py startapp applicationname
+
+ex:
+---
+(myvenv) F:\vagdevi6pmdjango\proj1>python manage.py startapp app1
+
+	proj1
+	   |--->app1
+	   |      |---> migrations
+	   |      |         |---> __init__.py
+           |      |---> __init__.py
+	   |      |---> apps.py
+	   |      |---> admin.py
+	   |      |---> views.py
+	   |      |---> models.py
+           |      |---> tests.py
+	   |---> proj1
+           |--->manage.py
+
+
+__init__.py : 
+	we can treat any package(folder/directory) as a python            package in that case to required __init__.py
+
+apps.py : 
+	to configure the application level settings
+
+admin.py : 
+	to add our models in the admin.py file for customize 		django admin pannel
+
+views.py : 
+	to create all the views in the views.py file
+
+models.py : 
+	to represent the database related logics
+	(to create all the models in the models.py file)
+
+tests.py : 
+	to writeing unit-testcase
+
+how start the server?
+---------------------
+	we can start the server by using following command
+
+	python manage.py runserver [portnumber]
+
+here port number optional,by default DDS(Django Development Server) port number is 8000
+
+how to sending the request to the server?
+-----------------------------------------
+	http://127.0.0.1:8000/
+
+	http://localhost:8000/
+
+how to stop the server through the command prompt?
+---------------------------------------------------
+	we can stop the server through the command prompt by using "ctrl+c"
+
+
+if we want to required change the port number by using following command,
+
+	python manage.py runserver  portnumber
+
+ex:
+---
+	python manage.py runserver 5000
+
+
+
+
+ex:
+---
+create a django project to display the hello world message on the webpage/webbrowser?
+
+step1:
+-----
+	to create a project
+
+syntax:
+	django-admin startproject projectname
+
+ex:
+--
+(myvenv) F:\vagdevi6pmdjango>django-admin startproject proj2
+
+step2:
+-----
+goto project location and to create an application in our project.
+
+syntax:
+	cd projectname
+
+	python manage.py startapp applicationname
+
+ex:
+---
+(myvenv) F:\vagdevi6pmdjango>cd proj2
+
+(myvenv) F:\vagdevi6pmdjango\proj2>python manage.py startapp app2
+
+step3:
+-----
+	to install our application in the settings.py file of the project.
+
+	settings.py
+	-----------
+INSTALLED_APPS = [
+    
+    'app2'
+]
+
+step4:
+-----
+to create a view in the views.py file of the application
+
+	views.py
+	--------
+#from django.shortcuts import render
+from django.http import HttpResponse
+# Create your views here.
+def welcome(request):
+    return HttpResponse("hello world")
+
+
+step5:
+-----
+to configure the url patterns for our views in the urls.py file.
+
+	urls.py
+	-------
+from django.contrib import admin
+from django.urls import path
+from app2 import views
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('wel/',views.welcome)
+]
+
+step6:
+-----
+to apply the migrations
+
+	python manage.py migrate
+
+step7:
+-----
+to start the server
+
+	python manage.py runserver
+
+step8:
+-----
+to send the request to the server
+
+	http://127.0.0.1:8000/wel
+
+structure
+---------
+	proj2
+	   |---> app2
+           |       |---> views.py
+	   |---> proj2
+	   |       |---> settings.py
+	   |       |---> urls.py
+	   |---> manage.py
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+

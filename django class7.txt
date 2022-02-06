@@ -1,0 +1,507 @@
+template inheritance:
+---------------------
+	we can achive the template inheritance(reusability of HTML code) by using include and extends tags.
+
+
+ex: by using include tag
+---
+step1:
+-----
+to create a project
+
+	django-admin startproject proj16
+
+step2:
+----
+goto project location and to create an application in our project.
+
+	cd proj16
+
+	python manage.py startapp app16
+
+step3:
+----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	----------
+INSTALLED_APPS = [
+    
+    'app16'
+    
+]
+
+step4:
+----
+to create a templates and to set the path for our templates in the settings.py file.
+
+	settings.py
+	----------
+TEMPLATES = [
+    {
+        
+        'DIRS': [BASE_DIR,'templates'],
+      },
+]
+
+step5:
+-----
+to create a views in the views.py file of the application.
+
+	views.py
+	-------
+from django.shortcuts import render
+
+# Create your views here.
+def welcome(request):
+    return render(request,'sample.html')
+
+	sample.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+{% include 'welcome.html' %}
+<h1>Hello siva Good Evening</h1>
+</body>
+</html>
+
+	welcome.html
+	------------
+<body bgcolor="powderblue">
+<h1 style="text-align:center;color:red">Welcome To Vagdevi Technologies</h1>
+</body>
+
+step6:
+-----
+to configure the url patterns for our views in the urls.py file of the project.
+
+	urls.py
+	-------
+from django.contrib import admin
+from django.urls import path
+from app16 import views
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('wishes/',views.welcome)
+]
+
+step7:
+-----
+to apply the migrations
+
+	python manage.py migrate
+
+step8:
+-----
+to start the server
+
+	python manage.py runserver
+
+step9:
+-----
+to send the request to the server
+
+	http://127.0.0.1:8000/wishes
+
+ex2: by using extends tag
+----
+step1:
+------
+to create a project
+
+	django-admin startproject proj17
+
+step2:
+-----
+goto project location and to create an application in our project.
+
+	cd proj17
+
+	python manage.py startapp app17
+
+step3:
+----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	----------
+INSTALLED_APPS = [
+   
+    'app17'
+]
+
+step4:
+---
+create a templates and to set the path for our templates in the settings.py file of the project.
+
+	settings.py
+	----------
+TEMPLATES = [
+    {
+       
+        'DIRS': [BASE_DIR,'templates'],
+      },
+]
+
+step5:
+----
+to create a views in the views.py file of the application.
+
+	views.py
+	-------
+from django.shortcuts import render
+
+# Create your views here.
+def welcome(request):
+    return render(request,'sample.html')
+
+	sample.html
+	------------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+{% extends 'welcome.html' %}
+{% block content %}
+<h1>Hello siva Good Evening</h1>
+{% endblock %}
+</body>
+</html>
+
+	welcome.html
+	-----------
+<body bgcolor="powderblue">
+<h1 style="text-align:center;color:red">Welcome To Vagdevi Technologies</h1>
+{% block content %}
+{% endblock %}
+</body>
+
+step6:
+-----
+to configure the url pattern for our views in the urls.py file of the project.
+
+	urls.py
+	-------
+from django.contrib import admin
+from django.urls import path
+from app17 import views
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('wishes/',views.welcome)
+]
+
+step7:
+-----
+to apply the migrations
+
+	python manage.py migrate
+
+step8:
+-----
+to start the server
+
+	python manage.py runserver
+
+step9:
+-----
+to send the request to the server
+
+	http://127.0.0.1:8000/wishes
+
+
+		Model
+		------
+what is model?
+--------------
+	a model is a python class,which is used to representing the database related logics.
+
+	we can define any class as a model class,our class is Extending by Model class of models module.
+
+	class name as a model name,in database terminalogy a model represent as a one table in specified database,model name as a table name.
+
+	we can implement the models with in the models.py file of the application.
+
+	in our model class attributes act as a columns in our database table.
+
+	at the time of defineing a attributes in model class,we need to specify the type of that attribute,size of that attribute and specify the constraints of that attribute.
+
+	models module provides some attribute types,sizes and constraints.
+
+
+syntax:
+------
+from django.db import models
+class classname(models.Model):
+	attr1=models.modelfieldtype(size,constraint)
+	attr2=models.modelfieldtype(size,constraint)
+	......
+	......
+
+example:
+-------
+from django.db import models
+class emp(models.Model):
+	eid=models.IntegerField(primary_key=True)
+	ename=models.CharField(max_length=30)
+	sal=models.DecimalField(max_digits=6,decimal_place=2)
+
+
+note:
+----
+at the time of creating a model,we dont specify any primary key attribute,by default django framework internally it will be added one primary key attribute,that is called pk/id.
+
+model field types:
+------------------
+	Django provides model field types to store,different types of data,They are:
+
+1.CharField
+	1. This field used for storing a small to medium sized strings.	   
+        2. It act as a base for other string based fields.
+	3. It does not provide any validations.
+
+2. SlugField
+	1. A CharField to store Slug.
+	2. It only accepts alphabets,numbers,underscores and hyphons.
+	3. It provides validations.
+
+3. DateField
+	1. It is used to store date.
+	2. It is corresponding to pythons datetime.date instance.   	  
+	3. It doesnot inherit from CharField.
+	4. It provides validations.
+
+4. DateTimeField
+	1. This is used to store date and time.
+	2. It is corressponding to pythons datetime.datetime instance.             3. It does not inherit from CharField.
+        4. It provides validations.
+
+5. EmailField
+	1. It is a CharField to store Email address.
+	2. It verify wheather Email is valid (or) not.
+
+6. URLField
+	1. It is a CharField used to store URL.
+	2. It provides validations.
+	3. It checks wheather the given URl is valid or not valid.
+
+7. TextField
+	1. It is used to large amount of text.
+	2. This field does not provide any validation.
+
+8. BooleanField
+	1. It is used to store True (or) False.
+	2. To check wheather the given value is Boolean (or) not.
+
+9. IntegerField
+	1. It is used to store integer values.
+	2. To check wheather the given value is number or not.
+
+10. DecimalField
+	1.It is use to store decimal number.
+
+11. ForeignKey
+	1. It is used to define one-to-many relationships.
+
+12. ManyToManyField
+	1. It is used to define many-to-many relationships. 
+      
+13. OneToOneField
+	1. It is used to define one-to-one relationships.
+	
+Field options
+-------------
+Each field takes a certain set of field-specific arguments (documented in the model field reference). 
+
+	max_length
+
+	null
+		If True, Django will store empty values as 		        		NULL in the database. Default is False.
+
+	blank
+		If True, the field is allowed to be blank. 		        		Default is False.
+
+	default
+		The default value for the field. 
+
+	primary_key
+		If True, this field is the primary key for the model.			
+
+Database connections:
+---------------------
+	We are connecting the particular database,we are changing the database connections in the settings.py file.
+
+	By default, the django framework connect the sqlite3 database.
+
+SQLite3:-
+---------
+DATABASES= {
+	'default' : {
+		'ENGINE' : 'django.db.backends.sqlite3',
+		'NAME' : os.path.join(BASE_DIR,'db.sqlite3'),
+	}
+}
+
+
+MYSQL:-
+-------
+DATABASES= {
+	'default' : {
+		'ENGINE' : 'django.db.backends.mysql',
+		'NAME' : 'database_name',
+		'USER' : 'database_user',
+		'PASSWORD' : 'database_pass',
+		'HOST' : '127.0.0.1',
+		'PORT' : '3306',
+	}
+}
+
+
+Oracle:-
+---------
+DATABASES= {
+	'default' : {
+		'ENGINE' : 'django.db.backends.oracle',
+		'NAME' : 'orcl',
+		'USER' : 'scott',
+		'PASSWORD' : 'tiger',
+		'HOST' : 'localhost',
+		'PORT' : '1521',
+	}
+}
+
+
+postgresql:-
+-----------
+DATABASES= {
+	'default' : {
+		'ENGINE' : 'django.db.backends.postgresql',
+		'NAME' : 
+		'USER' : 
+		'PASSWORD' : 
+		'HOST' : 
+		'PORT' : 
+	}
+}
+
+note:
+-----
+after defineing a model next we need to check errors, apply the makemigrations and migrate.
+
+how to check the errors in our model class?
+-----------------------------------------
+	we can check the errors in our model class by using check command
+
+	python manage.py check
+
+what is makemigrations?
+-----------------------
+	makemigrations is a one command,which is used to generate the sql query for our model class(the database understanding only sql queries).
+
+	to create a model 
+
+	python manage.py makemigrations [appname]
+
+what is migrate?
+--------------
+	after generate sql query next we need to execute that sql query by using migrate command.
+
+	python manage.py migrate
+
+ex:
+----
+step1:
+----
+to create a project
+
+	django-admin startproject proj18
+
+step2:
+-----
+goto project location and to create an application in the project location.
+
+	cd proj18
+
+	python manage.py startapp app18
+
+step3:
+-----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	----------
+INSTALLED_APPS = [
+   
+    'app18'
+]
+
+step4:
+-----
+to install that particular database related python packages.
+
+	sqlite3		--> sqlite3
+
+	mysql server	--> mysql-connector-python
+
+step5:
+-----
+to configure the database related settings in the settings.py file of the project.
+
+	settings.py
+	-----------
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+step6:
+-----
+to define a model in the models.py file of the application.
+
+	models.py
+	---------
+from django.db import models
+
+# Create your models here.
+class emp(models.Model):
+    eid=models.IntegerField(primary_key=True)
+    ename=models.CharField(max_length=20)
+    sal=models.DecimalField(max_digits=6,decimal_places=2)
+    active=models.BooleanField(default=False)
+    email=models.EmailField(blank=True)
+    
+step7:
+-----
+to check the errors in our model
+
+	python manage.py check
+
+step8:
+----
+to create a model(to generate sql query for our model)
+
+	python manage.py makemigrations
+
+step9:
+-----
+to create a tables(to execute the sql query)
+
+	python manage.py migrate
+
+structure:
+----------
+	proj18
+	   |--->app18
+	   |      |--->models.py
+	   |--->proj18
+	   |      |--->settings.py
+	   |--->manage.py
+
+

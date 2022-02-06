@@ -1,0 +1,421 @@
+ex:
+---
+to create url patterns by using url() ?
+
+step1:
+----
+to create a project
+
+	django-admin startproject proj6
+
+step2:
+----
+goto project location and to create an application in the project.
+
+	cd proj6
+
+	python manage.py startapp app6
+
+step3:
+-----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	---------
+INSTALLED_APPS = [
+    
+    'app6'
+]
+
+step4:
+----
+to create a views in the views.py file of the application.
+
+	views.py
+	--------
+from django.shortcuts import render
+from django.http import HttpResponse
+# Create your views here.
+def welcome(request):
+    return HttpResponse("Hello world")
+
+step5:
+----
+to configure the url patterns for our views in the urls.py file of the project.
+
+	urls.py
+	-------
+from django.contrib import admin
+from django.urls import path
+from django.conf.urls import url
+from app6 import views
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    url(r'wel',views.welcome)
+]
+
+step6:
+-----
+to apply the migrations
+
+	python manage.py migrate
+
+step7:
+------
+to start the server
+
+	python manage.py runserver
+
+step8:
+-----
+to send the request to the server
+
+	http://127.0.0.1:8000/wel
+
+structure:
+-----------
+	proj6
+	   |--->app6
+	   |     |--->views.py
+	   |--->proj6
+	   |     |--->urls.py
+	   |     |--->settings.py
+	   |--->manage.py
+
+Templates:
+----------
+	template is a html file which we can include python code by using template languages.
+
+	template language is special language we can achive the reusability of html code.
+
+	the template languages are DTL,Jinja2,....
+
+	we can define template variables by using {{ }} 
+
+	syntax
+	-------
+		{{ variablename }}
+
+we can define template tags by using {% %}
+
+	syntax
+	-------
+		{% templatetag %}
+
+
+ex:
+--
+wap to print hello world by using templates.
+
+step1:
+----
+to create a project
+
+	django-admin startproject proj7
+
+step2:
+-----
+goto project location and to create an application in the  project.
+
+	cd proj7
+
+	python manage.py startapp app7
+
+step3:
+----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	-----------
+INSTALLED_APPS = [
+    
+    'app7'
+]
+
+step4:
+-----
+to create a templates and to set the path for our templates in the settings.py file of the project.
+
+	settings.py
+	----------
+TEMPLATES = [
+    {
+       
+        'DIRS': [BASE_DIR,'templates'],       
+    },
+]
+
+step5:
+----
+to create a views in the views.py file of the application
+
+	views.py
+	--------
+from django.shortcuts import render
+# Create your views here.
+def welcome(request):
+    return render(request,'hello.html')
+
+	hello.html
+	-------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body bgcolor="orange">
+<h1 style="text-align:center">Hello world</h1>
+</body>
+</html>
+
+step6:
+-----
+to configure the url pattern for our views in the urls.py file of the project.
+
+	urls.py
+	--------
+from django.contrib import admin
+from django.urls import path
+from app7 import views
+from django.conf.urls import url
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    url('wel',views.welcome)
+]
+
+step7:
+-----
+to apply the migrations
+
+	python manage.py migrate
+
+step8:
+-----
+to start the server
+
+	python manage.py runserver
+
+step9:
+-----
+to send the request to the server
+
+	http://127.0.0.1:8000/wel
+
+structure:
+---------
+	proj7
+	  |--->app7
+	  |     |--->views.py
+          |--->proj7
+	  |     |--->settings.py
+          |     |--->urls.py
+          |--->templates
+          |     |--->hello.html
+          |--->manage.py
+
+
+what is HTTP?
+------------
+	HTTP(Hyper Text Transfer Protocol) is a web protocol,which is used to enable the communication between client and server.
+
+	we can make the request object by using HttpRequest class
+
+	we can make the response object by using HttpResponse class.
+
+the HttpRequest methods are,
+
+	GET(),POST(),PUT(),DELETE(),MOVE(),.........
+
+the most commonly used HttpRequest methods are GET() and POST() in a web application.
+
+differences between GET() and POST()?
+------------------------------------
+
+	GET()				POST()
+------------------------------------------------------------
+1).it is used to get the data	    1).it is used to post the 
+from the server and we can post	       data to the server
+the small ammount of data to the      (small,medium,large amount 
+server.					of data).
+
+
+2).we can made the get request in   2).we can made the post req 
+3-ways,they are			       in one way,i.e by  
+by typeing url on the address bar,     submitting  the form.
+by clicking on hyperlinks,
+by submitting the form
+
+3).it is a default request	    3).we can made the post 
+                                       request manually.
+
+4).GET() don't provide any          4).POST() provide security.
+security.
+
+5).it is not suitable for	    5).it is suitable for sending
+sending sensitive information          the sensitive information
+
+6).it is not suitable for	    6).it is suitable for 
+uploading the files                    uploading the files
+
+7).in GET(),the requested url	    7).in POST(),the requested 
+is append to the query string          url is not appended to the
+                                       query string.
+
+
+note:
+------
+whenever we are using GET(),one request object is created that is represented as dictionary object.
+
+that dictionary object data will be loading into GET variable.
+
+	if we want to get the values from GET request object by using hashing.
+	request.GET['key']
+
+
+whenever we are using POST(),one request object is created that is represented as dictionary object.
+
+that dictionary object data will be loading into POST variable.
+
+	if we want to get the values from POST request object by using hashing.
+	request.POST['key']
+
+
+ex1:
+---
+create a django project to read the data from the user input to perform the addition operation and to display that result on the web-browser by using get()?
+
+step1:
+------
+to create a project
+
+	django-admin startproject proj8
+
+step2:
+-----
+goto project location and to create an application in the project location.
+
+	cd proj8
+
+	python manage.py startapp app8
+
+step3:
+-----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	-----------
+INSTALLED_APPS = [
+    
+    'app8'
+]
+
+step4:
+-----
+to create a templates and to set the path for our templates in the settings.py file of the project.
+
+	settings.py
+	----------
+TEMPLATES = [
+    {
+      
+        'DIRS': [BASE_DIR,'templates'],
+     },
+]
+
+step5:
+-----
+to create a views in the views.py file of the application
+
+	views.py
+	-------
+from django.shortcuts import render
+from django.http import HttpResponse
+# Create your views here.
+def input(request):
+    return render(request,'input.html')
+
+def addition(request):
+    a=int(request.GET['fn'])
+    b=int(request.GET['sn'])
+    c=a+b
+    return HttpResponse("The Sum is:"+str(c))
+    
+	input.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body bgcolor="orange">
+<form action="add">
+Enter First Number:
+<input type="text" name="fn"><br><br>
+Enter Second Number:
+<input type="text" name="sn"><br><br>
+<input type="submit" value="Sum">
+</form>
+</body>
+</html>
+
+step6:
+-----
+to configure the url patterns for our views in the urls.py file of the project.
+
+	urls.py
+	---------
+from django.contrib import admin
+from django.urls import path
+from app8 import views
+from django.conf.urls import url
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('in/',views.input),
+    url('add',views.addition)
+]
+
+step7:
+-----
+to apply the migration
+
+	python manage.py migrate
+
+step8:
+----
+to start the server
+
+	python manage.py runserver
+
+step9:
+------
+to send the request to the server
+
+	http://127.0.0.1:8000/in
+
+structure:
+--------
+	proj8
+	  |--->app8
+	  |     |--->views.py
+	  |--->proj8
+	  |     |--->settings.py
+	  |     |--->urls.py
+          |--->templates
+	  |     |--->input.html
+	  |--->manage.py
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+

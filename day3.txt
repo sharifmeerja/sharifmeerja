@@ -1,0 +1,353 @@
+working with Form tag:
+----------------------
+	if we want to collect the information from the user,in that case we are using form tag.
+
+	ex: user registration/signup(like gmail,facebook,....)
+
+syntax:
+	<form action="url" method="post|get">
+		
+	</form>
+
+ex1:
+---
+to create a single line input fields?
+
+	demo.html
+	---------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body bgcolor="powderblue">
+Enter FirstName:
+<input type="text" name="fn">
+<br><br>
+Enter LastName:
+<input type="text" name="ln">
+</body>
+</html>	
+
+ex2: placeholder
+---
+	demo2.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<input type="text" name="fn" placeholder="Enter First Name">
+<br><br>
+<input type="text" name="ln" placeholder="Enter Last Name">
+</body>
+</html>
+
+ex3: password field 
+----
+	demo3.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<input type="text" name="fn" placeholder="UserName">
+<br><br>
+<input type="password" name="ln" placeholder="Password">
+</body>
+</html>
+
+ex4: radio buttons
+----
+	demo4.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+Select Your Gender
+<input type="radio" name="fm" value="f"> Female
+<input type="radio" name="fm" value="m"> Male
+</body>
+</html>
+
+ex5: to create a check boxes
+----
+
+	demo5.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+Select Your Courses:
+<input type="checkbox" name="python" value="p"> Python
+<input type="checkbox" name="django" value="d"> Django
+<input type="checkbox" name="flask" value="f"> Flask
+<input type="checkbox" name="REST" value="r"> REST
+</body>
+</html>
+
+ex6: to create a dropdown list
+---
+
+	demo6.html
+	---------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h1>Select Your Favourite Fruite:</h1>
+<select>
+<option name="banana">Banana</option>
+<option name="mango">Mango</option>
+<option name="apple">Apple</option>
+<option name="orange">Orange</option>
+<option name="pineapple">PineApple</option>
+</select>
+</select>
+</body>
+</html>
+
+ex7: to read the multiple lines text from the user
+-----
+	demo7.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h2>write your comments:</h2>
+<textarea cols="50" rows="5">
+</textarea>
+</select>
+</body>
+</html>
+
+ex8: date picker
+---
+
+	demo8.html
+	---------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+Enter your Date Of Birth:
+<input type="date">
+</body>
+</html>
+
+ex9: create submit and reset buttons
+----
+	demo9.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+Enter UserName:
+<form action="success.html">
+<input type="text"><br><br>
+Enter Password:
+<input type="password"><br><br>
+<input type="submit" value="Submit">
+<input type="reset" value="Reset">
+</form>
+</body>
+</html>
+
+ex10: to create a button
+----
+	demo10.html
+	-----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<button>ClickMe</button>
+<br><br>
+<button onclick="alert('hello siva')">Wishes</button>
+
+</body>
+</html>
+
+ex11: audio controls
+-----
+	demo11.html
+	------------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<audio controls>
+   <source src="sample.mp3" type="audio/mp3"></source>
+</audio>
+</body>
+</html>
+
+ex12: Video Controls
+-----
+	demo12.html
+	-----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<video controls width="100px" height="100px">
+   <source src="samplevideo.mp4" type="video/mp4"></source>
+</video>
+</body>
+</html>
+
+ex13: working navigation tag
+----
+
+	demo13.html
+	-----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<nav>
+<a href="success.html">Success</a>|
+<a href="welcome.html">Welcome</a>|
+<a href="cal.html">Calendar</a>
+</nav>
+</body>
+</html>
+
+ex14: working division tag
+----
+
+	demo14.html
+	-----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div>
+<div style="color:red;border: thick solid blue;">hello world</div>
+<br><br>
+<div style="color:red;border: dotted orange;">hello siva</div>
+<br><br>
+<div >hello krishna</div>
+</div>
+</body>
+</html>
+
+ex15: student registration form
+-----
+
+	demo15.html
+	-----------
+<!DOCTYPE html>
+<html>
+     <title>Registration</title>
+<head>
+</head>
+<body>
+<center>
+<h1>Student Registration Form</h1>
+<form action="success.html">
+Enter First Name:
+<input type="text"><br><br>
+Enter Last Name:
+<input type="text"><br><br>
+Enter User Name:
+<input type="text"><br><br>
+Enter Password:
+<input type="password"><br><br>
+Enter Your Email:
+<input type="email"><br><br>
+Enter Your Contact Number
+<select>
+<option name="India">+91</option>
+<option name="Pakistan">+92</option>
+<option name="srilanka">+93</option>
+<option name="Afganistan">+90</option>
+</select>
+<input type="mobile"><br><br>
+Enter your Date Of Birth:
+<input type="date"><br><br>
+Select Your Gender:
+<input type="radio" name="fm">Male
+<input type="radio" name="fm">Female<br><br>
+Upload Your Image:
+<input type="file"><br><br>
+Describe Your Self:
+<textarea cols="50" rows="5">
+</textarea><br><br>
+<input type="checkbox"><a href="terms.html">Read the Terms and conditions</a><br><br>
+<input type="reset" value="Reset">
+<input type="submit" value="Submit">
+</form>
+</center>
+</body>
+</html>
+
+ex:
+---
+	demo16.html
+	---------
+<!DOCTYPE html>
+<html>
+     <title>Registration</title>
+<head>
+</head>
+<body>
+<center>
+<h1>Student Registration Form</h1>
+<table>
+<form action="success.html">
+
+<tr><th>Enter First Name:</th>
+<td><input type="text"></td></tr>
+<tr><th>Enter Last Name:</th>
+<td><input type="text"></td></tr>
+<tr><th>Enter User Name:</th>
+<td><input type="text"></td></tr>
+<tr><th>Enter Password:</th>
+<td><input type="password"></td></tr>
+<tr><th>Enter Your Email:</th>
+<td><input type="email"></td>
+<tr><th>Enter Your Contact Number</th>
+<td><select>
+<option name="India">+91</option>
+<option name="Pakistan">+92</option>
+<option name="srilanka">+93</option>
+<option name="Afganistan">+90</option>
+</select>
+<input type="mobile"></td></tr>
+<tr><th>Enter your Date Of Birth:</th>
+<td><input type="date"></td></tr>
+<tr><th>Select Your Gender:</th>
+<td><input type="radio" name="fm">Male
+<input type="radio" name="fm">Female</td></tr>
+<tr><th>Upload Your Image:</th>
+<td><input type="file"></td></tr>
+<tr><th>Describe Your Self:</th>
+<td><textarea cols="50" rows="5">
+</textarea></td></tr>
+<tr><th><input type="checkbox"><a href="terms.html">Read the Terms and conditions</a></th></tr>
+<tr><th><input type="reset" value="Reset"></th>
+<th><input type="submit" value="Submit"></th></tr>
+
+</form>
+</table>
+</center>
+</body>
+</html>
+	

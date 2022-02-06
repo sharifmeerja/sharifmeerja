@@ -1,0 +1,274 @@
+		Django Forms
+		------------
+we can creating forms in Django in two ways,they are
+
+	1).Normal Form's
+
+	2).Model Form's
+
+working with Normal Form's:
+---------------------------
+ex1:
+---
+step1:
+-----
+to create a project
+
+	django-admin startproject proj23
+
+step2:
+-----
+goto project location and to create an applications in our project location.
+
+	cd proj23
+
+	python manage.py startapp app23
+
+step3:
+-----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	-----------
+INSTALLED_APPS = [
+    
+    'app23'
+]
+
+step4:
+-----
+to create a templates and to set the path for our templates in the settings.py file of the project.
+
+	settings.py
+	------------
+TEMPLATES = [
+    {
+       
+        'DIRS': [BASE_DIR/'templates'],
+      },
+]
+
+step5:
+-----
+to create a django forms in the forms.py file of the application.
+
+	forms.py
+	--------
+from django import forms
+class StudentForm(forms.Form):
+    sid=forms.IntegerField(label="Enter Student Id:")
+    sname=forms.CharField(label="Enter Student Name:",
+                          max_length=20)
+
+step6:
+----
+to create a views in the views.py file of the application.
+
+	views.py
+	-------
+from django.shortcuts import render
+from .forms import StudentForm
+from django.http import HttpResponse
+# Create your views here.
+def sinput(request):
+    s_form=StudentForm()
+    return render(request,'input.html',{'std_form':s_form})
+
+def sinsert(request):
+    return HttpResponse("Inserted Successfully")
+
+step7:
+-----
+to configure the url patterns for our views in the urls.py file of the project.
+
+	urls.py
+	------
+from django.contrib import admin
+from django.urls import path
+from app23 import views
+from django.conf.urls import url
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('in/',views.sinput),
+    url('insert',views.sinsert)
+    
+]
+
+step8:
+-----
+to apply the migrations
+
+	python manage.py migrate
+
+step9:
+-----
+to start the server
+
+	python manage.py runserver
+
+step10:
+------
+to send the request to the server
+
+	http://127.0.0.1:8000/in
+
+structure:
+---------
+	proj23
+	   |--->app23
+	   |      |--->forms.py
+	   |	  |--->views.py
+	   |--->proj23
+	   |      |--->settings.py
+	   |      |--->urls.py
+	   |--->templates
+	   |      |--->input.html
+	   |--->manage.py
+
+
+ex2:
+---
+step1:
+-----
+to create a project
+
+	django-admin startproject proj24
+
+step2:
+-----
+goto project location and to create an applications in our project location.
+
+	cd proj24
+
+	python manage.py startapp app24
+
+step3:
+-----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	-----------
+INSTALLED_APPS = [
+    
+    'app24'
+]
+
+step4:
+-----
+to create a templates and to set the path for our templates in the settings.py file of the project.
+
+	settings.py
+	------------
+TEMPLATES = [
+    {
+       
+        'DIRS': [BASE_DIR/'templates'],
+      },
+]
+
+step5:
+-----
+to create a django forms in the forms.py file of the application.
+
+	forms.py
+	--------
+from django import forms
+class Customer(forms.Form):
+    cid=forms.IntegerField(label="Enter Customer Id:")
+    cname=forms.CharField(label="Enter Customer Name:",
+                          max_length=20)
+    cemail=forms.EmailField(label="Enter Customer Email:",
+                            widget=forms.EmailInput())
+    cpwd=forms.CharField(label="Enter Customer password:",
+                             widget=forms.PasswordInput(),
+                             help_text="password contains\
+atleast 6 charecters long")
+
+step6:
+----
+to create a views in the views.py file of the application.
+
+	views.py
+	--------
+from django.shortcuts import render
+from .forms import Customer
+from django.http import HttpResponse
+# Create your views here.
+def cinput(request):
+    c_form=Customer()
+    return render(request,'input.html',{"cust_form":c_form})
+def cinsert(request):
+    return HttpResponse("Inserted Successfully")
+
+
+	input.html
+	----------
+<!DOCTYPE html>
+<html>
+<body bgcolor="yellow">
+<form action="insert">
+{{ cust_form.as_p}}
+<input type="submit" value="Insert">
+</form>
+</body>
+</html>
+
+note:
+----
+as_p		--> paragraph
+
+as_table	--> table
+
+as_ul		--> unordered list
+
+as_ol		--> ordered list
+
+step7:
+----
+to configure the url patterns for our views in the urls.py file of the project.
+
+	urls.py
+	------
+from django.contrib import admin
+from django.urls import path
+from app24 import views
+from django.conf.urls import url
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('in/',views.cinput),
+    url('insert',views.cinsert)
+    
+]
+
+step8:
+-----
+to apply the migrations
+
+	python manage.py migrate
+
+step9:
+-----
+to start the server
+
+	python manage.py runserver
+
+step10:
+------
+to send the request to the server
+
+	http://127.0.0.1:8000/in
+
+structure:
+---------
+	proj24
+	   |--->app24
+	   |      |--->forms.py
+	   |	  |--->views.py
+	   |--->proj24
+	   |      |--->settings.py
+	   |      |--->urls.py
+	   |--->templates
+	   |      |--->input.html
+	   |--->manage.py

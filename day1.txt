@@ -1,0 +1,241 @@
+what is Web application?
+------------------------
+	 a web application is a server-side program,that utilizes web browsers and web-technologies to perform a task over the web/internet.
+
+	it is run in web-server
+
+the most of the web applications are follow 3-tier architecture.
+
+	Client tier
+
+	Server tier
+
+	DataBase tier
+
+if we want to developing web applications to required following things/concepts,
+
+	1).Technologies
+	2).IDE's
+	3).Architecture/design pattern/Structure
+	4).Runtime Environments/deployment environments
+
+
+Technologies:
+-------------
+the technologies can be categorized into 3-types,they are
+
+	1).client-side technologies
+
+	2).Server side technologies
+
+	3).Database technologies
+
+client-side technologies:
+-------------------------
+	these technologies are used to build the webpages and to implement the presentation logics.
+
+	to perform the client side validations.
+
+	the client side technologies are HTML,CSS,Javascript,Bootstrap,....
+
+	we can run the programs with in the browsers
+
+	the web browsers are chrome,firefox,safari,opera,IE,...
+
+Server-side technologies:
+------------------------
+	the server side technologies are used to implement the business logics.
+
+	theses programs takes the request from the end user,process that request and give back the response to the end user.
+
+	the server-side technologies are used to perform server-side validations.
+
+	ex: python,java,.Net,PHP,Ruby,...
+
+	we can run the server side programs to required web-servers like apache tomcat,jboss,glasfish,WAS,DDS,IIS,....
+
+Database technologies:
+----------------------
+	these technologies are used to implement the database logics to perform the CRUD operations.
+
+	ex: SQL
+
+	we can run the database logics to required database servers,they are
+
+	mysql,sqlite,oracle,DB2,postgresql,teradata,
+	mongoDB,cassandra,DynamoDB,....
+
+IDE's:
+----
+IDE's(Integrated Development Environment's)
+
+IDE's are tools,which will provides good environment to implement the applications in simple way and faster.
+
+	ex: Pycharm
+	    Spyder
+	    VS code
+	    Netbeans
+	    Eclipse
+	    Atom
+	    ....
+	    ....
+
+Architecture/design pattern/Structure:
+--------------------------------------
+	the most of the web applications are implemented based on MVC architecture.
+
+	Model - View - Controller
+
+
+	but Django Follows MVT(Model-View-Template) architecture
+
+
+Web-Technologies/Client side technologies:
+-------------------------------------------
+what is HTML?
+-------------
+HTML(Hyper Text Markup Language)
+
+HTML is a Markup language,which is used to build the webpages.
+
+it provides basic structure of the web pages.
+
+if we want to implement the html code to required editors like notepad,notepad++,editplus,...
+
+we can save the html files with .html or .htm extensions
+
+current version of html is HTML5
+
+we can run html files through the browsers.
+
+
+structure of the HTML:
+----------------------
+<!DOCTYPE html>
+<html>
+	<head>
+
+	</head>
+
+	<body>
+
+	</body>
+</html>
+
+html page is a collection of html tags and html elements.
+
+we can define/place any predefined text within the angular brackets is known as a tag.
+
+	<h1 style="color:red,size:20px">hello world</h1>
+
+html tags can be categorized into two types,they are
+
+	1).Paired tags
+
+	2).Unpaired/Singular tags
+
+Paired tags:
+------------
+Paired tags means to required both opening tag and closeing tags.
+
+ex:	opening		closeing
+	-------		--------
+	<html>		</html>
+
+	<body>		</body>
+
+	<head>		</head>
+
+	<title>		</title>
+
+	<p>		</p>
+
+	<h1>		</h1>
+
+Unpaired/Singular tags:
+----------------------
+	any tag dont contains closeing tags,that type of tags are called unpaired/singular tags.
+
+	ex:
+	---
+	   <br>
+	   <hr>
+	   <input>
+
+ex1:
+---
+create a html page and to display the Hello world message on the browser?
+
+	demo.html
+	---------
+<!DOCTYPE html>
+<html>
+<head>
+<title>hello world</title>
+</head>
+<body>
+hello world
+</body>
+</html>
+
+ex2:
+---
+create a html page and to display the Hello world message on the browser by using heading tags?
+
+	demo1.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+<title>hello world</title>
+</head>
+<body>
+<h1>hello world</h1>
+<h2>hello world</h2>
+<h3>hello world</h3>
+<h4>hello world</h4>
+<h5>hello world</h5>
+<h6>hello world</h6>
+</body>
+</html>
+
+ex3:
+----
+create a html page and to display the Hello world message on the browser by using heading tag with style attributes?
+
+	demo2.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+<title>hello world</title>
+</head>
+<body>
+<h1 style="color:red;font-size:50px;font-family:elephant;font-style:italic;
+text-align:center;background:blue">hello world</h1>
+</body>
+</html>
+
+
+assignment:
+-----------
+create a html page and to display the Hello world message on the browser by using heading tag with style attributes?
+
+hello world  --> background - red
+                 text color - blue
+                 alignment  - left
+
+hello world  --> background - yellow
+                 text color - red
+                 alignment  - center
+
+hello world  --> background - orange
+                 text color - green
+                 alignment  - right
+
+
+
+
+
+
+ 

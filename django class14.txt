@@ -1,0 +1,430 @@
+Model Inheritances:
+------------------
+in django,the model inheritances can be categorized into 3-types,they are
+
+	abstract base class inheritance
+	multi-table inheritance
+	proxy model inheritance
+
+abstract base class inheritance:
+---------------------------------
+no table for base class,only for derived classes.
+
+can't perform CRUD opertaions on base class.
+
+ex:
+---
+from django.db import models
+class x(models.Model):
+      f_1=models.CharField(max_length=20)
+      f_2=models.CharField(max_length=20)
+    
+      class Meta:
+	    abstract=True
+
+class y(x):
+       f_3=models.CharField(max_length=20)
+
+
+multi-table inheritance:
+------------------------
+to create tables for both base class and derived class.
+we can perform CRUD operations on both base and derived class
+
+ex:
+---
+from django.db import models
+
+# Create your models here.
+class x(models.Model):
+    f_1=models.CharField(max_length=20)
+    f_2=models.CharField(max_length=30)
+
+class y(x):
+    f_3=models.BooleanField(default=False)
+    f_4=models.BooleanField(default=False)
+      
+proxy model inheritance:
+-----------------------
+to create tables for both base class and derived class.
+we can perform CRUD operations on both base and derived class.
+we can perform CRUD operations on one table will be copied to the another table.
+we can't create a new fields in proxy model
+
+ex:
+--
+from django.db import models
+
+# Create your models here.
+class x(models.Model):
+    f_1=models.CharField(max_length=20)
+    f_2=models.CharField(max_length=30)
+
+class y(x):
+    class Meta:
+	proxy=True
+        
+
+
+ex:
+---
+create a django project to implement abstract base class model inheritance.
+
+step1:
+------
+to create a django project
+
+	django-admin startproject proj29
+
+step2:
+-----
+goto project location and to create an application in side our project.
+
+	cd proj29
+
+	python manage.py startapp app29
+
+step3:
+-----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	-----------
+INSTALLED_APPS = [
+   
+    'app29'
+]
+
+step4:
+----
+to create a database and to configure the database settings in the settings.py file.
+
+	mysql> create database employes;
+
+	settings.py
+	-----------
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'employes',
+        'USER':'root',
+        'PASSWORD':'root',
+        'HOST':'localhost',
+        'PORT':'3306'
+    }
+}
+
+step5:
+-----
+to define a models in the models.py file of the application
+
+	models.py
+	---------
+from django.db import models
+
+# Create your models here.
+class location(models.Model):
+    loc=models.CharField(max_length=20)
+    pin=models.IntegerField()
+
+    class Meta:
+        abstract=True
+class employe(location):
+    eid=models.IntegerField(primary_key=True)
+    ename=models.CharField(max_length=20)
+
+step6:
+-----
+to check the errors in our model
+
+	python manage.py check
+
+step7:
+----
+to create a models(to generate the sql queries for our models)
+
+	python manage.py makemigrations
+
+app29\migrations\0001_initial.py
+    - Create model employe
+
+step8:
+----
+to apply the migrations(to generate the tables)
+
+	python manage.py migrate
+
+working with mysql commands
+----------------------------
+mysql> use employes; #use our own database
+
+mysql> show tables; #display the tables
+
+mysql> insert into app29_employe(eid,ename,loc,pin) values(101,'siva','hyd',500016); #insert the data
+
+mysql> select * from app29_employe; #retreive the data
+
++-----+--------+-----+-------+
+| loc | pin    | eid | ename |
++-----+--------+-----+-------+
+| hyd | 500016 | 101 | siva  |
++-----+--------+-----+-------+
+
+
+ex:
+---
+create a django project to implement multi-table model inheritance?
+
+step1:
+------
+to create a django project
+
+	django-admin startproject proj30
+
+step2:
+-----
+goto project location and to create an application in side our project.
+
+	cd proj30
+
+	python manage.py startapp app30
+
+step3:
+-----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	-----------
+INSTALLED_APPS = [
+   
+    'app30'
+]
+
+step4:
+----
+to create a database and to configure the database settings in the settings.py file.
+
+	mysql> create database customers;
+
+	settings.py
+	-----------
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'customers',
+        'USER':'root',
+        'PASSWORD':'root',
+        'HOST':'localhost',
+        'PORT':'3306'
+    }
+}
+
+step5:
+-----
+to define a models in the models.py file of the application
+
+	models.py
+	---------
+from django.db import models
+
+# Create your models here.
+class location(models.Model):
+    loc=models.CharField(max_length=20)
+    pin=models.IntegerField()
+    
+class customer(location):
+    cid=models.IntegerField(primary_key=True)
+    cname=models.CharField(max_length=20)
+
+
+step6:
+-----
+to check the errors in our model
+
+	python manage.py check
+
+step7:
+----
+to create a models(to generate the sql queries for our models)
+
+	python manage.py makemigrations
+
+app30\migrations\0001_initial.py
+    - Create model location
+    - Create model customer
+
+step8:
+----
+to apply the migrations(to generate the tables)
+
+	python manage.py migrate
+
+woking with mysql commands
+--------------------------
+mysql> use customers;
+
+mysql> show tables;
+
+mysql> insert into app30_location(loc,pin) values('hyd',50016);
+Query OK, 1 row affected (0.21 sec)
+
+mysql> insert into app30_location(loc,pin) values('pune',534231);
+Query OK, 1 row affected (0.24 sec)
+
+mysql> select * from app30_location;
++----+------+--------+
+| id | loc  | pin    |
++----+------+--------+
+|  1 | hyd  |  50016 |
+|  2 | pune | 534231 |
++----+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> insert into app30_customer(cid,cname,location_ptr_id) values(101,'siva',1);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into app30_customer(cid,cname,location_ptr_id) values(102,'rama',2);
+Query OK, 1 row affected (0.18 sec)
+
+mysql> select * from app30_customer;
++-----------------+-----+-------+
+| location_ptr_id | cid | cname |
++-----------------+-----+-------+
+|               1 | 101 | siva  |
+|               2 | 102 | rama  |
++-----------------+-----+-------+
+2 rows in set (0.00 sec)
+
+
+mysql> delete from app30_customer where cid=101;
+Query OK, 1 row affected (0.19 sec)
+
+mysql> select * from app30_customer;
++-----------------+-----+-------+
+| location_ptr_id | cid | cname |
++-----------------+-----+-------+
+|               2 | 102 | rama  |
++-----------------+-----+-------+
+1 row in set (0.11 sec)
+
+mysql> select * from app30_location;
++----+------+--------+
+| id | loc  | pin    |
++----+------+--------+
+|  1 | hyd  |  50016 |
+|  2 | pune | 534231 |
++----+------+--------+
+2 rows in set (0.01 sec)
+
+
+ex:
+----
+create a django project to implement proxy model inheritance.
+
+step1:
+------
+to create a django project
+
+	django-admin startproject proj31
+
+step2:
+-----
+goto project location and to create an application in side our project.
+
+	cd proj31
+
+	python manage.py startapp app31
+
+step3:
+-----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	-----------
+INSTALLED_APPS = [
+   
+    'app31'
+]
+
+step4:
+----
+to create a database and to configure the database settings in the settings.py file.
+
+	mysql> create database students;
+
+	settings.py
+	-----------
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'students',
+        'USER':'root',
+        'PASSWORD':'root',
+        'HOST':'localhost',
+        'PORT':'3306'
+    }
+}
+
+step5:
+-----
+to define a models in the models.py file of the application
+
+	models.py
+	---------
+from django.db import models
+
+# Create your models here.
+class student(models.Model):
+    id=models.IntegerField(primary_key=True)
+    name=models.CharField(max_length=20)
+    loc=models.CharField(max_length=20)
+    pin=models.IntegerField()
+    
+class teacher(student):    
+    class Meta:
+        proxy=True
+    
+
+step6:
+-----
+to check the errors in our model
+
+	python manage.py check
+
+step7:
+----
+to create a models(to generate the sql queries for our models)
+
+	python manage.py makemigrations
+
+app31\migrations\0001_initial.py
+    - Create model student
+    - Create proxy model teacher
+
+step8:
+----
+to apply the migrations(to generate the tables)
+
+	python manage.py migrate
+
+woking with mysql commands
+--------------------------
+mysql> use students;
+
+
+mysql> show tables;
+
+mysql> insert into app31_student(id,name,loc,pin) values(1,'siva','hyd',500016);
+Query OK, 1 row affected (0.16 sec)
+
+mysql> insert into app31_student(id,name,loc,pin) values(2,'rama','pune',500017);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from app31_student;
++----+------+------+--------+
+| id | name | loc  | pin    |
++----+------+------+--------+
+|  1 | siva | hyd  | 500016 |
+|  2 | rama | pune | 500017 |
++----+------+------+--------+
+2 rows in set (0.00 sec)

@@ -1,0 +1,346 @@
+Django ORM
+-----------
+ORM(Object Relational Mapper)
+
+Django ORM provides an elegant and powerful way to interact with the database instead of writeing sql queries.
+
+ORM describing how to access the data,manipulate the data and store the data into the database in object oriented fashion.
+
+by using ORM,we can perform CURD operations.
+	Create
+	Update
+	Retrieval	
+	Delete
+
+How to start Django shell?
+--------------------------
+	we can start the Django shell using the "shell" command
+
+		python manage.py shell
+
+Database Access through managers:-
+---------------------------------
+Django by default adds a manager called "objects" to every model class.
+
+The objects manager helps us to interact with the databse in complicated ways.
+
+The objects manager is the most common way for Django developers to interact with the database.
+
+ex:
+--
+F:\djangoweekendbatch>myvenv\scripts\activate
+
+(myvenv) F:\djangoweekendbatch>cd proj18
+
+(myvenv) F:\djangoweekendbatch\proj18>python manage.py shell
+Python 3.10.1 
+
+>>> from app18.models import emp
+>>> emp.objects
+<django.db.models.manager.Manager object at 0x000002AFD67649A0>
+>>> type(emp.objects)
+<class 'django.db.models.manager.Manager'>
+
+how to creating an objects? (inserting the records)
+---------------------------
+
+we can creating an object in 3-ways,they are
+
+	1).Normal way
+
+	2).by using create() of objects manager
+
+	3).by using bulk_create() of objects manager
+
+ex1:Normal way
+---
+>>> e1=em(eid=101,ename="siva",sal=3000,active=True,
+          email="siva123@gmail.com")
+
+>>> e1.save()
+
+>>> e1.pk
+101
+>>> e1.eid
+101
+>>> e1.ename
+'siva'
+>>> e1.sal
+3000
+>>> e1.active
+True
+>>> e1.email
+'siva123@gmail.com'
+
+ex2: by using create() of objects manager
+----
+>>> emp.objects.creat(eid=102,ename="rama",sal=2500,
+                      email="rama4u@gmail.com")
+
+<emp: emp object (102)>
+
+>>> emp.objects.create(eid=103,ename="krishna",sal=3200,active=True)
+
+<emp: emp object (103)>
+
+
+>>> emp.objects.creat(eid=104,ename="abc",sal=3100,
+                      email="abcgmail.com")
+
+<emp: emp object (104)>
+
+ex3: by using bulk_create() of objects manager
+----
+>>> emp.objects.bulk_create([
+emp(eid=105,ename="xyz",sal=2500,active=True,email="xyz@gmail.com"),
+emp(eid=106,ename="abc",sal=2800),
+emp(eid=107,ename="pqr",sal=2900,active=True,
+email="pqr123@gmail.com")
+])
+
+[<emp: emp object (105)>, <emp: emp object (106)>, <emp: emp object (107)>]
+
+how to Retreive the objects? (how to retreive the records)
+----------------------------
+	we can retreive the objects by using all() of objects manager.
+
+	the all() to return the QuerySet object.
+	the QuerySet is similar to list object in python but the QuerySet object dont supporting negative indexing concept.
+
+ex1:
+---
+>>> x=emp.objects.all()
+>>> x
+<QuerySet [<emp: emp object (101)>, <emp: emp object (102)>, <emp: emp object (103)>, <emp: emp object (104)>, <emp: emp object (105)>, <emp: emp object (106)>, <emp: emp object (107)>]>
+>>> type(x)
+<class 'django.db.models.query.QuerySet'>
+
+>>> x[0]
+<emp: emp object (101)>
+
+>>> x[:3]
+<QuerySet [<emp: emp object (101)>, <emp: emp object (102)>, <emp: emp object (103)>]>
+
+>>> x[-1]
+AssertionError: Negative indexing is not supported.
+
+ex2:
+---
+>>> for rec in emp.objects.all():
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+101 siva 3000.00 True siva123@gmail.com
+102 rama 2500.00 False rama4u@gmail.com
+103 krishna 3200.00 True
+104 abc 3100.00 False abcgmail.com
+105 xyz 2500.00 True xyz@gmail.com
+106 abc 2800.00 False
+107 pqr 2900.00 True pqr123@gmail.com
+
+how to generate raw_sql query?
+------------------------------
+>>> print(emp.objects.all().query)
+
+SELECT "app18_emp"."eid", "app18_emp"."ename", "app18_emp"."sal", "app18_emp"."active", "app18_emp"."email" FROM "app18_emp"
+
+how to get the no.of objects?(to get the no.of records)
+-----------------------------
+	we can get the no.of records by using count() of objects manager.
+
+>>> emp.objects.count()
+7
+
+how to ordering the objects?
+-----------------------------
+	we can get the records in ascending or descending order by uisng order_by() of objects manager.
+
+	order_by('attribute') 	#ascending order
+
+	order_by('-attribute')  #descending order
+
+
+
+>>> for rec in emp.objects.all():
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+101 siva 3000.00 True siva123@gmail.com
+102 rama 2500.00 False rama4u@gmail.com
+103 krishna 3200.00 True
+104 abc 3100.00 False abcgmail.com
+105 xyz 2500.00 True xyz@gmail.com
+106 abc 2800.00 False
+107 pqr 2900.00 True pqr123@gmail.com
+
+ex1: ascending order
+---
+>>> for rec in emp.objects.all().order_by('sal'):
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+102 rama 2500.00 False rama4u@gmail.com
+105 xyz 2500.00 True xyz@gmail.com
+106 abc 2800.00 False
+107 pqr 2900.00 True pqr123@gmail.com
+101 siva 3000.00 True siva123@gmail.com
+104 abc 3100.00 False abcgmail.com
+103 krishna 3200.00 True
+
+ex2: descending order
+---
+>>> for rec in emp.objects.all().order_by('-sal'):
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+103 krishna 3200.00 True
+104 abc 3100.00 False abcgmail.com
+101 siva 3000.00 True siva123@gmail.com
+107 pqr 2900.00 True pqr123@gmail.com
+106 abc 2800.00 False
+102 rama 2500.00 False rama4u@gmail.com
+105 xyz 2500.00 True xyz@gmail.com
+
+how to filter the objects?
+--------------------------
+	we can filter the records by using filter() objects manager.
+
+>>> for rec in emp.objects.all():
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+101 siva 3000.00 True siva123@gmail.com
+102 rama 2500.00 False rama4u@gmail.com
+103 krishna 3200.00 True
+104 abc 3100.00 False abcgmail.com
+105 xyz 2500.00 True xyz@gmail.com
+106 abc 2800.00 False
+107 pqr 2900.00 True pqr123@gmail.com
+
+ex1:
+---
+>>> for rec in emp.objects.filter(sal=2500):
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+102 rama 2500.00 False rama4u@gmail.com
+105 xyz 2500.00 True xyz@gmail.com
+
+ex2:
+----
+>>> for rec in emp.objects.filter(active=True):
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+101 siva 3000.00 True siva123@gmail.com
+103 krishna 3200.00 True
+105 xyz 2500.00 True xyz@gmail.com
+107 pqr 2900.00 True pqr123@gmail.com
+
+ex3:
+-----
+>>> for rec in emp.objects.filter(sal=2500,active=True):
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+105 xyz 2500.00 True xyz@gmail.com
+
+ex4:
+----
+>>> for rec in emp.objects.filter(sal=2500,sal=3000):
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+SyntaxError: keyword argument repeated: sal
+
+
+Django Model Field Lookup's
+----------------------------
+	the Django Model Field Lookup's are used to perform the filter operating in deep/depth.
+
+	syntax:
+	-------
+		modelField__lookupname
+
+
+>>> for rec in emp.objects.all():
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+101 siva 3000.00 True siva123@gmail.com
+102 rama 2500.00 False rama4u@gmail.com
+103 krishna 3200.00 True
+104 abc 3100.00 False abcgmail.com
+105 xyz 2500.00 True xyz@gmail.com
+106 abc 2800.00 False
+107 pqr 2900.00 True pqr123@gmail.com
+
+ex1:
+----
+>>> for rec in emp.objects.filter(ename__contains='i'):
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+101 siva 3000.00 True siva123@gmail.com
+103 krishna 3200.00 True
+
+ex2:
+----
+>>> for rec in emp.objects.filter(ename__contains='I'):
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+101 siva 3000.00 True siva123@gmail.com
+103 krishna 3200.00 True
+
+ex3:
+----
+>>> for rec in emp.objects.filter(ename__icontains='I'):
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+101 siva 3000.00 True siva123@gmail.com
+103 krishna 3200.00 True
+
+ex4:
+----
+>>> for rec in emp.objects.filter(ename__endswith='a'):
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+101 siva 3000.00 True siva123@gmail.com
+102 rama 2500.00 False rama4u@gmail.com
+103 krishna 3200.00 True
+
+ex5:
+----
+>>> for rec in emp.objects.filter(ename__startswith='a'):
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+104 abc 3100.00 False abcgmail.com
+106 abc 2800.00 False
+
+ex6:
+----
+>>> for rec in emp.objects.filter(sal__gt=3000):
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+103 krishna 3200.00 True
+104 abc 3100.00 False abcgmail.com
+
+ex7:
+----
+>>> for rec in emp.objects.filter(sal__gte=3000):
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+101 siva 3000.00 True siva123@gmail.com
+103 krishna 3200.00 True
+104 abc 3100.00 False abcgmail.com
+
+ex8:
+----
+>>> for rec in emp.objects.filter(sal__lt=3000):
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+102 rama 2500.00 False rama4u@gmail.com
+105 xyz 2500.00 True xyz@gmail.com
+106 abc 2800.00 False
+107 pqr 2900.00 True pqr123@gmail.com
+
+ex9:
+----
+>>> for rec in emp.objects.filter(sal__lte=3000):
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+101 siva 3000.00 True siva123@gmail.com
+102 rama 2500.00 False rama4u@gmail.com
+105 xyz 2500.00 True xyz@gmail.com
+106 abc 2800.00 False
+107 pqr 2900.00 True pqr123@gmail.com
+

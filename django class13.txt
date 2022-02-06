@@ -1,0 +1,408 @@
+working with static files?
+--------------------------
+	static files means css,javascript and images.
+
+	we can working with static files,to configure the some settings in settings.py file of the project.
+
+	settings.py
+	-----------
+after static url
+
+STATICFILES_DIRS=[
+	BASE_DIR/'static',
+    ]
+
+how to loading the static files into templates?
+----------------------------------------------
+	we can load the css files into templates,by using following syntax,
+
+	{% load static %}
+
+<link rel="stylesheet" href="{% static 'cssfilename.css' %}">
+
+
+	we can load the javascript files into templates,by using following syntax,
+
+	{% load static %}
+
+<script type="text/javascript" src="{% static 'javscriptfilename.js' %}>
+</script>
+
+	we can load the images into templates,by using following syntax,
+
+	{% load static %}
+<img src="{% static 'imagefilenamewithextension' %} />
+
+ex:
+---
+create a dkjango project with static files?
+
+step1:
+-----
+to create project
+
+	djangoi-admin startproject proj27
+
+step2:
+-----
+goto project location to create an application in our project.
+
+	cd proj27
+
+	python manage.py startapp app27
+
+step3:
+----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	-----------
+INSTALLED_APPS = [
+   
+    'app27'
+]
+
+step4:
+-----
+to create templates and to set the path for our templates in the settings.py file of the project.
+
+	settings.py
+	-----------
+TEMPLATES = [
+    {
+        
+        'DIRS': [BASE_DIR/'templates'],      
+    },
+]
+
+step5:
+----
+to create a staticfiles and to set the path for our static files in the settings.py file of the project.
+
+	settings.py
+	------------
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS=[
+    BASE_DIR/'static',
+    ]
+
+step6:
+------
+to create views in the views.py file of the application.
+
+	views.py
+	-------
+from django.shortcuts import render
+
+# Create your views here.
+def welcome(request):
+    return render(request,'sample.html')
+
+	templates/sample.html
+	---------------------
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<script type="text/javascript" src="{% static 'js/wishes.js' %}">
+</script>
+</head>
+<body>
+<h1>welcome to Vagdevi Technologies</h1>
+<p>
+python is a General purpose high level programming lanuage
+</p>
+<h2>Good Evening</h2>
+<div id="right">
+<img  src="{% static 'images/guido.jfif' %}"></img>
+</div>
+<br><br>
+<button onclick="wishes()">ClickMe</button>
+</body>
+</html>
+	
+	static/css/styles.css
+	----------------------
+body{
+background-image:url("https://images.unsplash.com/photo-1642970047530-a3b7093fadd6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDE2fDZzTVZqVExTa2VRfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60");
+
+background-size:cover;
+background-repeat:no-repeat;
+}
+
+h1{
+   color:red;
+   text-align:center;
+   font-size:30px;
+   font-family:elephant;
+   font-style:italic;
+}
+
+p,h2{
+   color:yellow;   
+   font-size:20px;
+   font-family:calibre;
+   font-style:bold;
+}
+
+img{   
+   width:200px;
+   height:300px;  
+  }
+
+#right{
+    text-align:right;
+    }
+
+
+	static/js/wishes.js
+	--------------------
+function wishes(){
+     alert('hello siva good evening');
+   }
+
+step7:
+------
+to configure the url patterns for our views in the urls.py file of the project.
+
+	urls.py
+	-------
+from django.contrib import admin
+from django.urls import path
+from app27 import views
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('wel/',views.welcome)
+]	
+
+step8:
+-----
+to apply the migrations
+
+	python manage.py migrate
+
+step9:
+----
+to start the server
+
+	python manage.py runserver
+
+step10:
+-----
+to send the request to the server
+
+	http://127.0.0.1:8000/wel
+
+structure:
+----------
+	proj27
+	   |--->app27
+	   |      |--->views.py
+	   |--->proj
+	   |      |--->settings.py
+	   |      |--->urls.py
+	   |--->templates
+	   |      |--->sample.html
+	   |--->static
+	   |      |--->css
+	   |      |     |--->styles.css
+	   |      |--->js
+	   |      |     |--->wishes.js
+	   |      |--->images
+	   |      |     |--->guido.jfif
+	   |--->manage.py
+
+
+		cookies and sessions
+		---------------------
+Cookies:
+---------
+	Http is a stateless protocol, when a request is send to the server it has no idea wheather you are requesting for the first time (or) you are the same person who has visited this page thousands times before.
+
+	This is a problem, to overcome this problem we are introducing "cookie".
+
+	A cookie was first implemented by a programmer named "Louis Mountulli" in the year of 1994.
+
+What is Cookie:-
+----------------
+	A cookie is a small piece of data,which is stored in the users browser which is sent by the server.
+
+	They are commonly used to store user preferrences.
+
+How to working cookie
+---------------------
+	The browser sends the request to the server, the server process that request and sends the response along with one (or) more cookies to the browser.
+
+	The browser saves the cookie received from the server.
+	
+	
+How to create a cookie:
+-----------------------
+	We can create a cookie using the set_cookie( ) method of response object.
+
+	Syntax:- set_cookie(name,value,max-age=None)
+
+How to read the cookies:
+------------------------
+	Every request object in django has a cookie attribute which acts like a dictionary object.
+
+	We can use cookie to access cookie value by using the following syntax,it will return string format.
+ 
+	Syntax:- request.COOKIE['cookie_name']
+
+	
+How to delete a cookie:
+------------------------
+	To delete a cookie, simply call 'delete_cookie()' method of response object with the name of the cookie to delete.
+	Syntax:
+	     response.delete_cookie(cookiename)
+
+Note:
+-----	
+	With the help of cookie we can solve the problem of statelessness of http.
+
+
+Sessions:-
+----------
+	We are introducing the sessions to overcome the problems in cookies.
+
+Problems in cookies:
+--------------------
+	1. An attacker can modify contents of a cookie.
+	2. We cannot store sensitive data.
+	3. We can store limited amount of data in cookie.
+
+How to working with sessions:
+------------------------------
+	When we sessions the data is not stored directly in the browser instead of it is stored in the server.
+
+	Django creates a unique random string called session id (or) SID and associates SID with the data.
+
+	The server then sends a cookie name sesion id containing sid as value to the browser.
+
+	Sid generated by django is a 32 characters long random string , so it is almost impossible to guess by an attacker.
+
+Setting up sessions:
+--------------------
+	In django, we are implemented sessions using middleware.
+
+Open settings.py file middleware option is available,
+
+	django.contrib.session.middleware.SessionMiddleware
+
+
+working with mysql server
+--------------------------
+https://dev.mysql.com/downloads/installer/
+
+step1:
+-----
+to create a project
+
+	django-admin startproject proj28
+
+step2:
+-----
+goto project location and to create an application in our project.
+
+	cd proj28
+
+	python manage.py startapp app28
+
+step3:
+-----
+to install our application in the settings.py file of the project.
+	
+	settings.py
+	-----------
+INSTALLED_APPS = [
+    
+    'app28'
+]
+
+step4:
+----
+to create the database/schema in our mysql server
+
+	goto search
+	      |
+	mysql commend line client
+	      |
+	enter your root password
+	    
+	syntax:
+	-------
+	      create database databasename;
+
+	ex:
+	      mysql> create database cust;
+
+	syntax:
+		mysql> show databases;
+
+	
+step5:
+-----
+to configure the database settings in the settings.py file of the project.
+
+	settings.py
+	-----------
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'cust', #our database name
+        'USER':'root',
+        'PASSWORD':'root',
+        'HOST':'localhost',
+        'PORT':'3306'
+    }
+}
+	
+step6:
+----
+to install python DataBaseAPI for Mysql database server.
+
+	pip install mysqlclient
+
+ex:
+---
+(myvenv) F:\djangoweekendbatch\proj28>pip install mysqlclient	
+
+step7:
+----
+to define a model in the models.py file of the application.
+
+	models.py
+	--------
+from django.db import models
+
+# Create your models here.
+class customer(models.Model):
+    cid=models.IntegerField(primary_key=True)
+    cname=models.CharField(max_length=20)
+    cadd=models.CharField(max_length=30)
+
+step8:
+-----
+to check the errors in our model
+
+	python manage.py check
+
+step9:
+-----
+to create a model(to generate the sql query for our model)
+
+	python manage.py makemigrations
+
+step10:
+------
+to create a tables for our models
+
+	python manage.py migrate
+
+
+
+	

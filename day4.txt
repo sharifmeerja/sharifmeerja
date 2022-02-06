@@ -1,0 +1,502 @@
+			CSS
+			----
+what is CSS?
+------------
+CSS stands for Cascading Style Sheet.
+
+it is is a styling language,which is used to describe the look and formating the documents written in markup languages like HTML documents.
+
+the current version of CSS is CSS3
+
+syntax:
+------
+	selector{
+		property_name:property_value;
+		property_name:property_value;
+			----------
+			----------
+		property_name:property_value;
+               }
+
+types of css
+------------
+	inline css
+	internal css
+	external css
+
+inline css:
+-----------
+inline css means we can take style attribute of any html element in the body section of the html document.
+
+ex:
+---
+	demo1.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h1 style="color:red;text-align:center">hello world</h1>
+
+<p style="color:yellow;background-color:blue;font-size:30px">CSS stands for Cascading Style Sheet.<br>
+it is is a styling language,which is used to describe the look and formating the documents written in markup languages like HTML documents.</p>
+
+</body>
+</html>
+
+internal css
+------------
+internal css means we can take style tag of html in the head section of the html document.
+
+ex:
+---
+	demo2.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+   h1{
+      color:blue;
+      text-align:center;
+      }
+
+   p{
+     color:red;
+     background-color:blue;
+     font-size:30px;     
+    }
+</style>
+</head>
+<body>
+<h1>hello world</h1>
+
+<p>CSS stands for Cascading Style Sheet.<br>
+it is is a styling language,which is used to describe the look and formating the documents written in markup languages like HTML documents.</p>
+
+</body>
+</html>
+
+
+external css
+------------
+external css means to create a seperate css file and to link that css file into our html document by using link tag of html in the head section of the html document.
+
+ex:
+---
+	demo3.html
+	-----------
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="sample.css">
+</head>
+<body>
+<h1>hello world</h1>
+
+<p>CSS stands for Cascading Style Sheet.<br>
+it is is a styling language,which is used to describe the look and formating the documents written in markup languages like HTML documents.</p>
+
+</body>
+</html>
+
+
+	sample.css
+	----------
+h1{
+      color:red;
+      text-align:center;
+  }
+
+p{
+     color:red;
+     background-color:blue;
+     font-size:30px; 
+     font-style:italic;    
+  }
+
+
+types of selectors:
+--------------------
+	element selector
+	id selector
+	class selector
+	universal selector
+	group selector
+
+ex: element selector
+---
+	demo4.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="sample.css">
+</head>
+<body>
+<h1>hello world</h1>
+<p>CSS stands for Cascading Style Sheet</p>
+<p>HTML stands for HyperText Markup Language</p>
+<p>SQL stands for Structured Query Language</p>
+</body>
+</html>
+
+	sample.css
+	----------
+h1{
+      color:red;
+      text-align:center;
+  }
+
+p{
+     color:red;
+     background-color:blue;
+     font-size:30px; 
+     font-style:italic;    
+  }
+
+
+ex: id selector
+---
+	demo5.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="sample.css">
+</head>
+<body>
+<h1>hello world</h1>
+<p id="para1">CSS stands for Cascading Style Sheet</p>
+<p id="para2">HTML stands for HyperText Markup Language</p>
+<p id="para3">SQL stands for Structured Query Language</p>
+</body>
+</html>
+
+	sample.css
+	----------
+h1{
+      color:red;
+      text-align:center;
+  }
+
+p{
+     color:red;
+     background-color:blue;
+     font-size:30px; 
+     font-style:italic;    
+  }
+
+#para2{
+     color:blue;
+     background-color:red;
+     font-size:50px;         
+  }
+
+#para3{
+     color:yellow;
+     background-color:black;
+     font-size:50px; 
+     font-family:elephant;
+     sont-style:italic;        
+  }
+
+
+ex: class selector
+---
+
+	demo6.html
+	---------
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="sample.css">
+</head>
+<body>
+<h1>hello world</h1>
+<h1 class="heading2">Hello siva</h1>
+<p id="para1">CSS stands for Cascading Style Sheet</p>
+<p id="para2">HTML stands for HyperText Markup Language</p>
+<p id="para3">SQL stands for Structured Query Language</p>
+</body>
+</html>
+
+	sample.css
+	---------
+h1{
+      color:red;
+      text-align:center;
+  }
+
+#para2{
+     color:blue;
+     background-color:red;
+     font-size:50px;         
+  }
+
+.heading2{
+
+      color:blue;
+      text-align:right;
+      font-style:italic;
+      background-color:orange;
+  }
+
+
+ex: group selector
+---
+
+	demo7.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="sample.css">
+</head>
+<body>
+<h1>What is CSS?</h1>
+<p>CSS stands for Cascading Style Sheet</p>
+<h2>What is HTML?</h2>
+<p>HTML stands for HyperText Markup Language</p>
+<h3>What is SQL?</h3>
+<p>SQL stands for Structured Query Language</p>
+</body>
+</html>
+
+	sample.css
+	-----------
+h1,h2,h3{
+      color:red;
+      text-align:center;
+      font-size:50px;
+      font-style:italic
+  }
+
+p{
+     color:blue;
+     background-color:yellow;
+     font-size:30px;         
+  }
+
+ex: universal selector
+---
+
+	demo8.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="sample.css">
+</head>
+<body>
+<h1>What is CSS?</h1>
+<p>CSS stands for Cascading Style Sheet</p>
+<h2>What is HTML?</h2>
+<p>HTML stands for HyperText Markup Language</p>
+<h3>What is SQL?</h3>
+<p>SQL stands for Structured Query Language</p>
+</body>
+</html>
+
+	sample.css
+	----------
+*{
+      color:red;      
+      font-size:50px;
+      font-style:italic
+  }
+
+
+ex: to apply the specific selector
+---
+	demo9.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="sample.css">
+</head>
+<body>
+<h1>What is CSS?</h1>
+<p class="heading2">CSS stands for Cascading Style Sheet</p>
+<h1 class="heading2">What is HTML?</h1>
+<p>HTML stands for HyperText Markup Language</p>
+<h1>What is SQL?</h1>
+<p>SQL stands for Structured Query Language</p>
+</body>
+</html>
+
+	sample.css
+	-----------
+p.heading2{
+      color:red;      
+      font-size:50px;
+      font-style:italic;
+  }
+
+ex: background properties
+---
+
+	demo10.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="sample.css">
+</head>
+<body>
+<!-- welcome to my site -->
+<h1>What is CSS?</h1>
+<p class="heading2">CSS stands for Cascading Style Sheet</p>
+<h1 class="heading2">What is HTML?</h1>
+<p>HTML stands for HyperText Markup Language</p>
+<h1>What is SQL?</h1>
+<p>SQL stands for Structured Query Language</p>
+</body>
+</html>
+
+	sample.css
+	-----------
+body{
+    background-image:url("tim.png");
+    background-repeat:no-repeat;
+    /*background-size:cover;*/
+    background-position:center;
+
+  }
+
+h1,h2,h3{
+    color:red;
+    font-size:70px;
+    }
+p{
+  color:blue;
+  font-style:italic;
+  font-size:50px;
+}
+
+ex:
+---
+	demo11.html
+	-----------
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="sample.css">
+</head>
+<body>
+<!-- welcome to my site -->
+<h1>What is CSS?</h1>
+<p class="heading2">CSS stands for Cascading Style Sheet</p>
+<h1 class="heading2">What is HTML?</h1>
+<p>HTML stands for HyperText Markup Language</p>
+<h1>What is SQL?</h1>
+<p>SQL stands for Structured Query Language</p>
+</body>
+</html>
+
+	sample.css
+	----------
+body{
+    background-image:url("https://images.unsplash.com/photo-1637247475270-f14f51510708?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDV8NnNNVmpUTFNrZVF8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60");
+    background-repeat:no-repeat;
+    background-size:cover;
+   /* background-position:center;
+    background-color:pink;*/
+  }
+
+h1,h2,h3{
+    color:red;
+    font-size:70px;
+    }
+p{
+  color:blue;
+  font-style:italic;
+  font-size:50px;
+}
+
+ex: border properties
+---
+	demo12.html
+	-----------
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="sample.css">
+</head>
+<body>
+<!-- welcome to my site -->
+<h1>What is CSS?</h1>
+<p class="heading2">CSS stands for Cascading Style Sheet</p>
+<h1 class="heading2">What is HTML?</h1>
+<p>HTML stands for HyperText Markup Language</p>
+<h1>What is SQL?</h1>
+<p>SQL stands for Structured Query Language</p>
+</body>
+</html>
+
+	sample.css
+	----------
+h1{
+    border-style:solid;
+    border-color:green;
+    border-size:5px;
+    color:red;
+    font-size:70px;
+    border-bottom-left-radius:50px;
+    }
+.heading2{
+    border-style:dashed;
+    border-color:purple;
+    border-size:20px;
+    color:green;
+    font-size:70px;
+    border-top-left-radius:50px;
+    }
+p{
+  border-style:dotted;
+  border-color:red;
+  border-size:20px;
+  color:blue;
+  font-style:italic;
+  font-size:50px;
+  border-radius:50px;
+}
+
+ex:
+---
+	demo13.html
+	-----------
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="sample.css">
+</head>
+<body>
+<!-- welcome to my site -->
+<h1>What is CSS?</h1>
+<p class="heading2">CSS stands for Cascading Style Sheet</p>
+<h1 class="heading2">What is HTML?</h1>
+<p>HTML stands for HyperText Markup Language</p>
+<h1>What is SQL?</h1>
+<p>SQL stands for Structured Query Language</p>
+</body>
+</html>
+
+	sample.css
+	----------
+h1{
+    border:5px solid green;   
+    color:red;
+    font-size:70px;
+    border-bottom-right-radius:50px;
+    }
+
+p{
+  border:dotted 10px red; 
+  color:blue;
+  font-style:italic;
+  font-size:50px;
+  border-radius:50px;
+}

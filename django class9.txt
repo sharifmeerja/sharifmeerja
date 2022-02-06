@@ -1,0 +1,379 @@
+to perform the complex queries on our models by using 'Q'
+
+>>> from django.db.models import Q
+>>> from app18.models import emp
+>>> for rec in emp.objects.all():
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+101 siva 3000.00 True siva123@gmail.com
+102 rama 2500.00 False rama4u@gmail.com
+103 krishna 3200.00 True
+104 abc 3100.00 False abcgmail.com
+105 xyz 2500.00 True xyz@gmail.com
+106 abc 2800.00 False
+107 pqr 2900.00 True pqr123@gmail.com
+
+>>> x=emp.objects.all()
+>>> for rec in x.filter(Q(ename__contains='a') & Q(active=True)):
+          print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+101 siva 3000.00 True siva123@gmail.com
+103 krishna 3200.00 True
+
+>>> for rec in x.filter(Q(ename__contains='a') | Q(active=True)):
+          print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+101 siva 3000.00 True siva123@gmail.com
+102 rama 2500.00 False rama4u@gmail.com
+103 krishna 3200.00 True
+104 abc 3100.00 False abcgmail.com
+105 xyz 2500.00 True xyz@gmail.com
+106 abc 2800.00 False
+107 pqr 2900.00 True pqr123@gmail.com
+
+>>> for rec in x.filter(~Q(ename__contains='a')):
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+105 xyz 2500.00 True xyz@gmail.com
+107 pqr 2900.00 True pqr123@gmail.com
+
+how to update the objects? (how to update the records)
+--------------------------
+	we can update the objects by using update() of objects manager.
+
+	the update() to return the output as no.of records are updates.
+
+ex1:  before update
+-----
+>>> for rec in emp.objects.all():
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+101 siva 3000.00 True siva123@gmail.com
+102 rama 2500.00 False rama4u@gmail.com
+103 krishna 3200.00 True
+104 abc 3100.00 False abcgmail.com
+105 xyz 2500.00 True xyz@gmail.com
+106 abc 2800.00 False
+107 pqr 2900.00 True pqr123@gmail.com
+
+
+>>> emp.objects.filter(~Q(ename__contains='s')).update(sal=3500)
+5
+
+after update:
+------------
+>>> for rec in emp.objects.all():
+         print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+101 siva 3000.00 True siva123@gmail.com
+102 rama 3500.00 False rama4u@gmail.com
+103 krishna 3200.00 True
+104 abc 3500.00 False abcgmail.com
+105 xyz 3500.00 True xyz@gmail.com
+106 abc 3500.00 False
+107 pqr 3500.00 True pqr123@gmail.com
+
+ex2:
+----
+before update:
+------------
+>>> for rec in emp.objects.all():
+         print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+101 siva 3000.00 True siva123@gmail.com
+102 rama 3500.00 False rama4u@gmail.com
+103 krishna 3200.00 True
+104 abc 3500.00 False abcgmail.com
+105 xyz 3500.00 True xyz@gmail.com
+106 abc 3500.00 False
+107 pqr 3500.00 True pqr123@gmail.com
+
+>>> emp.objects.all().update(sal=4000)
+7
+
+after update
+-------------
+>>> for rec in emp.objects.all():
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+101 siva 4000.00 True siva123@gmail.com
+102 rama 4000.00 False rama4u@gmail.com
+103 krishna 4000.00 True
+104 abc 4000.00 False abcgmail.com
+105 xyz 4000.00 True xyz@gmail.com
+106 abc 4000.00 False
+107 pqr 4000.00 True pqr123@gmail.com
+
+how to delete the objects? how to delete the records
+--------------------------
+	we can delete the objects by using delete() of objects manager.
+
+	the delete() to return the no.of records are deleted.
+
+ex1:  before delete
+-----
+>>> for rec in emp.objects.all():
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+101 siva 4000.00 True siva123@gmail.com
+102 rama 4000.00 False rama4u@gmail.com
+103 krishna 4000.00 True
+104 abc 4000.00 False abcgmail.com
+105 xyz 4000.00 True xyz@gmail.com
+106 abc 4000.00 False
+107 pqr 4000.00 True pqr123@gmail.com
+
+>>> emp.objects.filter(~Q(ename__contains='a')).delete()
+(2, {'app18.emp': 2})
+
+after delete
+------------
+>>> for rec in emp.objects.all():
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+101 siva 4000.00 True siva123@gmail.com
+102 rama 4000.00 False rama4u@gmail.com
+103 krishna 4000.00 True
+104 abc 4000.00 False abcgmail.com
+106 abc 4000.00 False
+
+>>> emp.objects.all().delete()
+(5, {'app18.emp': 5})
+
+>>> for rec in emp.objects.all():
+        print(rec.eid,rec.ename,rec.sal,rec.active,rec.email)
+
+no records
+
+ex:
+---
+create a django project to insert the data into the database and retreive the data from the database?
+
+step1:
+-----
+to create a django project
+
+	django-admin startproject proj19
+
+step2:
+----
+goto project location and to create an application in our project.
+
+	cd proj19
+
+	python manage.py startapp app19
+step3:
+-----
+to install our application in our settings.py file of the project.
+
+	settings.py
+	-----------
+INSTALLED_APPS = [
+   
+    'app19'
+]
+
+step4:
+----
+to configure the database settings in the settings.py file of the project.
+
+	settings.py
+	----------
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+step5:
+-----
+to create a models in the models.py file of the application.
+
+	models.py
+	---------
+from django.db import models
+
+# Create your models here.
+class customer(models.Model):
+    cid=models.IntegerField(primary_key=True)
+    cname=models.CharField(max_length=20)
+    cadd=models.CharField(max_length=50)
+    valid=models.BooleanField(default=False)
+
+step6:
+----
+to check the errors in our model
+
+	python manage.py check
+
+step7:
+-----
+to create a model(to generate the sql query for our model)
+
+	python mange.py makemigrations
+
+step8:
+----
+to create a table(to execute the sql query)
+
+	python manage.py migrate
+
+step9:
+-----
+to create a templates and to set the path for our templates in the settings.py file of the project
+		
+	settings.py
+	----------
+TEMPLATES = [
+    {
+       
+        'DIRS': [BASE_DIR,'templates'],        
+    },
+]
+
+step10:
+-----
+to create a views in the views.py file of the application.
+
+	views.py
+	--------
+from django.http import HttpResponse
+# Create your views here.
+def customer_info(request):
+    return render(request,'customer_input.html')
+
+def insertion(request):
+    ip_cid=int(request.GET['ci'])
+    ip_cname=request.GET['cn']
+    ip_cadd=request.GET['ca']
+    ip_valid=request.GET['cv']
+    c=customer(cid=ip_cid,cname=ip_cname,cadd= ip_cadd,
+               valid=ip_valid)
+    c.save()
+    return render(request,'links.html')
+
+def retreive(request):
+    data=customer.objects.all()
+    return render(request,'display.html',{'records':data})
+
+
+	customer_input.html
+	-------------------
+<head>
+</head>
+<body bgcolor="powderblue">
+<form action="add">
+Enter CustomerId:
+<input type="text" name="ci"><br><br>
+Enter Customer Name:
+<input type="text" name="cn"><br><br>
+Enter Customer Address:
+<input type="text" name="ca"><br><br>
+Enter Customer Validation:
+<input type="text" name="cv"><br><br>
+<input type="submit" value="insertcustomer">
+</form>
+</body>
+</html>
+
+	links.html
+	----------
+<!DOCTYPE html>
+<html>
+<body>
+<h1> Successfully Inserted </h1>
+<br><br>
+<a href="insert">Click Here To Insert The Customer</a>
+<br><br>
+<a href="result">Click Here To Display The Customer Information</a>
+</body>
+</html>
+
+	display.html
+	------------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body bgcolor="yellow">
+<table border=3>
+<tr><th>Cid</th>
+    <th>Cname</th>
+    <th>Caddress</th>
+    <th>Validation</th>
+</tr>
+{% for rec in records %}
+<tr><td>{{rec.cid}}</td>
+    <td>{{rec.cname}}</td>
+    <td>{{rec.cadd}}</td>
+    <td>{{rec.valid}}</td>
+</tr>
+{% endfor %}
+</table>
+<a href="insert">Click Here To Insert The Customer</a>
+</body>
+</html>
+
+step11:
+-----
+to configure the url patterns for our views in the urls.py file.
+
+	app19/urls.py
+	--------------
+from django.conf.urls import url
+from . import views
+
+urlpatterns=[
+    url('in',views.customer_info),
+    url('add',views.insertion),
+    url('result',views.retreive)
+    ]
+
+
+	proj19/urls.py
+	-------------
+from django.contrib import admin
+from django.urls import path,include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('app19/',include('app19.urls'))
+]
+
+step12:
+------
+to start the server
+
+	python manage.py runserver
+
+step13:
+-----
+to send the request to the server
+
+	http://127.0.0.1:8000/app19/in
+
+structure:
+---------
+	proj19
+	   |--->app19
+	   |      |--->views.py
+	   |      |--->urls.py
+           |--->proj19
+	   |      |--->settings.py
+	   |      |--->urls.py
+	   |--->templates
+	   |      |--->customer_input.html
+	   |      |--->links.html
+           |      |--->display.html
+	   |--->manage.py
+
+
+
+
+
+
+
+
+
+

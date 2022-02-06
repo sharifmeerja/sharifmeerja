@@ -1,0 +1,516 @@
+ex:
+---
+create a django project to perform addition of two numbers in class based viwes by using get() and post()?
+
+step1:
+----
+to create a project
+
+	django-admin startproject proj12
+
+step2:
+----
+goto project location and to create an application in our project location.
+
+	cd proj12
+
+	python manage.py startapp app12
+
+step3:
+-----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	----------
+INSTALLED_APPS = [
+   
+    'app12'
+]
+
+step4:
+-----
+to create a templates and to set the path for our templates in the settings.py file of the project.
+
+	settings.py
+	----------
+TEMPLATES = [
+    {
+       
+        'DIRS': [BASE_DIR,'templates'],        
+    },
+]
+
+step5:
+-----
+to create a views in in the views.py file of the application.
+
+	views.py
+	--------
+from django.shortcuts import render
+from django.views.generic import View
+from django.http import HttpResponse
+# Create your views here.
+class ginput(View):
+    def get(self,request):
+        return render(request,'ginput.html')
+class pinput(View):
+    def get(self,request):
+        return render(request,'pinput.html')       
+        
+class addition(View):
+    def get(self,request):
+        a=int(request.GET['fn'])
+        b=int(request.GET['sn'])
+        c=a+b
+        return HttpResponse("The Sum is:"+str(c))
+    def post(self,request):
+        a=int(request.POST['fn'])
+        b=int(request.POST['sn'])
+        c=a+b
+        return HttpResponse("The addition is:"+str(c))
+        
+        
+	ginput.html
+	-----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body bgcolor="orange">
+<form action="add">
+Enter First Number:
+<input type="text" name="fn"><br><br>
+Enter Second Number:
+<input type="text" name="sn"><br><br>
+<input type="submit" value="sum">
+</form>
+</body>
+</html>
+
+	pinput.html
+	------------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body bgcolor="powderblue">
+<form action="add" method="post">
+{% csrf_token %}
+Enter First Number:
+<input type="text" name="fn"><br><br>
+Enter Second Number:
+<input type="text" name="sn"><br><br>
+<input type="submit" value="sum">
+</form>
+</body>
+</html>
+
+step6:
+-----
+to configure the url patterns for our views in the urls.py file of the project.
+
+	urls.py
+	-------
+from django.contrib import admin
+from django.urls import path
+from app12.views import ginput,addition,pinput
+from django.conf.urls import url
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('gin/',ginput.as_view()),
+    path('pin/',pinput.as_view()),
+    url(r'add',addition.as_view())
+]
+
+step7:
+-----
+to apply the migrations
+
+	python manage.py migrtae
+
+step8:
+-----
+to start the server
+
+	python manage.py runserver
+
+step9:
+-----
+to send the request to the server
+
+	http://127.0.0.1:8000/gin
+	http://127.0.0.1:8000/pin
+
+structure:
+---------
+	proj12
+	   |--->app12
+	   |      |--->views.py
+	   |--->proj12
+	   |      |--->settings.py
+	   |      |--->urls.py
+	   |--->templates
+	   |      |--->ginput.html
+	   |      |--->pinput.html
+	   |--->manage.py
+
+ex:
+---
+to access the templates from outside the base directory of the project?
+
+step1:
+----
+to create a project
+
+	django-admin startproject proj13
+
+step2:
+----
+goto project location and to create an application in our project location.
+
+	cd proj13
+
+	python manage.py startapp wishesapp
+	python manage.py startapp messageapp
+	
+
+step3:
+----
+to install our applications in the settings.py file of the project.
+
+	settings.py
+	-----------
+INSTALLED_APPS = [
+   
+    'wishesapp',
+    'messageapp',
+]
+
+step4:
+----
+to create a templates(presentation) and to set the path for our templates in the settings.py file.
+
+	C:
+         |-->Users
+               |--->DELL
+		     |--->Desktop
+			     |--->presentation
+			              |--->wishesapp
+			              |  	|--->wish.html
+				      |--->messageapp
+				      |         |--->wish.html
+
+	settings.py
+	-----------
+
+TEMPLATES = [
+    {
+        
+        'DIRS': [BASE_DIR,'C:\\Users\\DELL\\Desktop\\presentation'],       
+    },
+]
+
+step5:
+----
+to create views in the views.py file of the applications.
+
+	wishesapp\views.py
+	------------------
+from django.shortcuts import render
+from django.views.generic import View
+# Create your views here.
+class welcome(View):
+    def get(self,request):
+        return render(request,'wishesapp\wish.html')
+
+	messageapp\views.py
+	--------------------
+from django.shortcuts import render
+# Create your views here.
+def welcome(request):
+    return render(request,'messageapp\wish.html')
+
+
+	wishesapp\wish.html
+	-------------------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body bgcolor="powderblue">
+<h1 style="color:red;text-align:center">Hello krishna Good Evening</h1>
+</body>
+</html>
+
+	messageapp\wish.html
+	--------------------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body bgcolor="orange">
+<h1 style="color:red;text-align:center">Hello siva Good Evening</h1>
+</body>
+</html>
+
+step6:
+-----
+to configure the url patterns for our views in the urls.py file of the project.
+
+	urls.py
+	-------
+from django.contrib import admin
+from django.urls import path
+from wishesapp.views import welcome
+from messageapp import views
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('wishesapp/',welcome.as_view()),
+    path('messageapp/',views.welcome)
+]
+
+step7:
+-----
+to apply the migrations
+
+	python manage.py migrate
+
+step8:
+-----
+to start the server
+
+	python manage.py runserver
+
+step9:
+-----
+to send the request to the server
+
+	http://127.0.0.1:8000/wishesapp
+	http://127.0.0.1:8000/messageapp
+
+structure:
+---------
+	proj13
+	   |--->wishesapp
+	   |      |--->views.py
+	   |--->messageapp
+	   |      |--->views.py
+	   |--->proj13
+	   |      |--->settings.py
+	   |      |--->urls.py
+	   |--->manage.py
+
+
+templates structure
+--------------------
+	C:\\Users\\DELL\\Desktop
+			  |--->presentation
+			  |         |--->wishesapp
+		          |         |        |--->wish.html
+	                  |         |--->messageapp
+			  |         |        |--->wish.html
+
+
+
+	templates
+	---------
+	a template is a html file ,in which we can include python code by using some template languages.
+
+template language?
+-----------------
+	a template language is a language,it will provides html code reusability.
+
+	the template languages are DTL,Jinja2
+
+template variable?
+-----------------
+	any text which is sourounded by duble curly braces is known as a template variable.
+
+	{{ variable }}
+
+template tag?
+-----------
+	any block/text which is sourounded by  single curly-brace and percentile,that text is called template tag.
+
+	{% tag %}
+
+ex:
+---
+if tag:
+-----
+{% if condition %}
+    <p>....</p>
+{% endif %}
+
+if else tag
+-----------
+{% if condition %}
+    <p>....</p>
+{% else %}
+    <p>....</p>
+{% endif %}
+
+
+if elif else
+------------
+{% if condition %}
+    <p>.....</p>
+{% elif condition %}
+    <p>....</p>
+{% else %}
+    <p>....</p>
+{% endif %}
+
+elif ladder
+-----------
+{% if condition %}
+    <p>.....</p>
+{% elif condition %}
+    <p>....</p>
+{% elif condition %}
+    <p>....</p>
+{% elif condition %}
+    <p>....</p>
+{% elif condition %}
+    <p>....</p>
+{% else %}
+    <p>....</p>
+{% endif %}
+
+nested if
+----------
+{% if condition %}
+    <p>------</p>
+    {% if condition %}
+         <p>-----</p>
+    {% endif %}
+{% endif %}
+
+for block
+---------
+{% for variable in iterableobj %}
+	<p>.....</p>
+{% endfor %}
+
+single line comment
+-------------------
+{# comment line #}
+
+
+multi-line comment
+------------------
+{% comment %}
+   <p>....</p>
+   <p>....</p>
+{% endcomment %}
+
+csrf token tag
+--------------
+{% csrf_token %}
+
+extends tag
+----------
+{% extends htmlfilename %}
+
+include tag
+-------------
+{% include htmlfilename %}
+
+block content tag
+-----------------
+{% block content %}
+	<p>......</p>
+{% endblock %}
+
+load tag
+--------
+{% load static %}
+
+template filters:
+----------------
+	the template filters are used to modify the template variables data before they are renderd as html code.
+
+we can use the filters by using following syntax,
+
+{{ varaiblename|filtername}}
+
+	the template filter's are
+capfirst
+--------
+	to return the first word first charecter in upper case/capitalcase.
+
+	x="hai krishna good morning"
+
+	{{ x|capfirst}}
+
+	o/p: "Hai krishna good morning"
+
+
+lower
+----
+	to return the string in lower case
+
+	x="RAMA"
+
+	{{ x|lower }}
+	
+	o/p: "rama"
+
+upper
+-----
+	to return the string in upper case
+
+	y="siva"
+
+	{{ y|upper }}
+
+	o/p: "SIVA"
+
+length
+------
+	to return the no.of charecters/elements in a given object
+
+	z="siva krishna"
+
+	{{ z|length }}
+
+	o/p: 12
+
+title
+-----
+	to return each and every word first charecter in capital-case.
+
+	a="hello rama krishna"
+
+	{{ a|title }}
+
+	o/p: "Hello Rama Krishna"
+
+truncatewords
+------------
+	to truncate the string upto specified no.of words.
+
+	{{ variable|truncatewords:"no.of.words"}}
+
+x="hello welcome to python world"
+
+	{{ x|truncatewords:"2" }}
+
+	o/p: "hello welcome ..."
+
+
+truncatechars
+-------------
+
+	to truncate the string upto specified no.of charecters.
+
+	here elipses also counted.
+
+	x="hello siva welcome to python world"
+
+	{{ x|trucatechars:"10" }}
+
+		"hello s..."
+

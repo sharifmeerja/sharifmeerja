@@ -1,0 +1,450 @@
+Model Forms:
+------------
+	any form is connected to model,that forms are called ModelForms.
+
+	if we want to create modelforms in that case our class is extending by ModelForm class of forms module.
+
+	syntax
+	------
+	from django import forms
+	
+	class classname(forms.ModelForm):
+		class Meta:
+		      model="modelname"
+		      fields=['field_1','field_2',....]
+                            (or)
+		      fields='__all__'
+
+
+ex1:
+---
+create a django project with modelforms?
+
+step1:
+----
+to create a project
+
+	django-admin startproject proj25
+
+step2:
+-----
+goto project location and to create an application
+
+	cd proj25
+
+	python manage.py startapp app25
+
+step3:
+-----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	----------
+INSTALLED_APPS = [
+  
+    'app25'
+]
+
+step4:
+----
+to configure the database settings in the settings.py file of the project.
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+step5:
+----
+to define a models in the models.py file of the application.
+
+	models.py
+	---------
+from django.db import models
+
+# Create your models here.
+class emp(models.Model):
+    eid=models.IntegerField(primary_key=True)
+    ename=models.CharField(max_length=20)
+    esal=models.DecimalField(max_digits=6,decimal_places=2)
+    dno=models.IntegerField()
+    
+step6:
+----
+to check the errors in our model
+
+	python manage.py check
+
+step7:
+----
+to create a models(top generate sql query for our models)
+
+	python manage.py makemigrations
+
+step8:
+----
+to generate the tables(to execute the sql query for model)
+
+	python manage.py migrate
+
+step9:
+----
+to create a model forms in the forms.py file of the application.
+
+	forms.py
+	--------
+from django import forms
+from .models import emp
+
+class empform(forms.ModelForm):
+    class Meta:
+        model=emp
+        fields="__all__"
+
+step10:
+------
+to create a templates and to set the path for our templates in the settings.py file.
+
+	settings.py
+	----------
+TEMPLATES = [
+    {
+        
+        'DIRS': [BASE_DIR/'templates'],        
+    },
+]
+
+step11:
+-----
+to create a views in the views.py file of the application.
+
+	views.py
+	--------
+from django.shortcuts import render
+from .forms import empform
+from django.http import HttpResponse
+from .models import emp
+# Create your views here.
+def einput(request):
+    empform_obj=empform()
+    return render(request,'input.html',{'eform':empform_obj})
+
+def einsert(request):
+    empform_obj=empform(request.POST)
+    if empform_obj.is_valid():
+        empform_obj.save()
+        return HttpResponse("Inserted Successfully")
+    
+def eretreive(request):
+    data=emp.objects.all()
+    return render(request,'display.html',{'records':data})
+
+
+	input.html
+	-----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<form action="insert" method="post">
+ {% csrf_token %}
+{{ eform.as_p }}
+<input type="submit" value="add">
+</form>
+</body>
+</html>
+
+	display.html
+	------------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<table border="3">
+<tr>
+<th>Eid</th>
+<th>Ename</th>
+<th>Esal</th>
+<th>Dno</th>
+</tr>
+{% for rec in records %}
+ <tr>
+    <td>{{rec.eid}}</td>
+    <td>{{rec.ename}}</td>
+    <td>{{rec.esal}}</td>
+    <td>{{rec.dno}}</td>
+ </tr>
+{% endfor %}
+</table>
+</body>
+</html>
+
+step12:
+----
+to configure the url patterns for our views in the urls.py file of the project.
+
+	urls.py
+	--------
+from django.contrib import admin
+from django.urls import path
+from app25 import views
+from django.conf.urls import url
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('in/',views.einput),
+    url('insert',views.einsert),
+    url('display',views.eretreive)
+    
+]
+
+step13:
+------
+to start the server
+
+	python manage.py runserver
+
+step14:
+------
+to send the request to the server
+
+	http://127.0.0.1:8000/in
+	http://127.0.0.1:8000/display
+
+structure:
+----------
+	proj25
+	   |--->app25
+	   |      |--->models.py
+	   |      |--->forms.py
+	   |      |--->views.py
+	   |--->proj25
+	   |      |--->settings.py
+	   |      |--->urls.py
+	   |--->templates
+	   |      |--->input.html
+	   |      |--->display.html
+	   |--->manage.py
+
+
+
+	Django Admin
+	-------------
+
+Admin sites are integral part of any website. 
+
+Django provides an admin app.
+
+We will create our own admin site called cadmin.
+
+We are communicating the django admin site first we need to create a superuser
+
+	we can create a superuser,by following command
+
+	python manage.py createsuperuser
+
+
+In django admin site,The Groups and Users under "Authentication and Autherization" are coming from django.contrib.auth.
+
+Django uses
+	Groups model to handle the permissions.
+	The Users model refers to the users of the site.
+
+Adding our models into Django admin site:
+-----------------------------------------
+By default ,django admin app does not load any model from the apps we are created.
+
+To add a model to the django admin site we have to modify admin.py file available inside every app.
+
+Note:
+------
+If admin.py file is not available inside the our application,just we can create a new file and called it as admin.py and then add our model into admin.py file.
+
+
+ex:
+---
+step1:
+----
+to create a project
+
+	django-admin startproject proj26
+
+step2:
+-----
+goto project location and to create an application in the project location.
+
+	cd proj26
+
+	python manage.py startapp app26
+
+step3:
+-----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	-----------
+INSTALLED_APPS = [
+    
+    'app26'
+]
+
+step4:
+----
+to configure database related settings in the settings.py file of the project.
+
+	settings.py
+	-----------
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+step5:
+----
+to create a models in the models.py file of the application.
+
+	models.py
+	--------
+from django.db import models
+
+# Create your models here.
+class customer(models.Model):
+    cid=models.IntegerField(primary_key=True)
+    cname=models.CharField(max_length=20)
+    cadd=models.CharField(max_length=30)
+    payment=models.DecimalField(max_digits=6,decimal_places=2)
+    active=models.BooleanField(default=False)
+    
+step6:
+----
+to check the errors in our model
+
+	python manage.py check
+
+step7:
+----
+to generate the sql query for our model(create a models)
+
+	python manage.py makemigrations
+
+step8:
+------
+to execute the sql queries
+
+	python manage.py migrate
+
+step9:
+----
+to create a superuser for communicate the django admin pannel
+
+	python manage.py createsuperuser
+
+username:
+
+email:
+
+password:
+
+re-enter password:
+
+create superuser successfully
+
+step10:
+------
+to start the server
+
+	python manage.py runserver
+
+step11:
+-----
+to send the request to the server
+
+	http://127.0.0.1:8000/admin
+
+how to load the our models into django admin pannel?
+----------------------------------------------------
+	we can add the our models into djnago admin pannel in that case we are apply some changes in the admin.py file of the application.
+
+	admin.py
+	-------
+from django.contrib import admin
+from  .models import customer
+# Register your models here.
+admin.site.register(customer)
+
+
+How to customizing django admin site:
+---------------------------------------
+	To customize the appearance of models in Django Admin site, we can create a new class "Adminclass" which inherits from "admin.ModelAdmin" in admin.py file.
+
+ModelAdmin Attributes:
+-----------------------
+1.list_display:
+--------------
+It contains which model fields to display on the list page.
+
+It accepts a list (or) tuple of fieldnames which you want to display.
+	
+2.search_fields:
+----------------
+This attributes enables the search function on the list page.
+
+It accepts a list (or) tuple of fieldnames where you want to search.
+
+It performs a case-insensitive search.
+	
+3.ordering:
+----------
+It specifies how the list of objects should be ordered in the django admin site.
+
+It accepts a list (or) tuple of fieldnames to specify the order.
+
+	
+4.list_filter:
+--------------
+This attribute activate the filtering bar.
+
+It accepts a list(or) tuple of field names.
+
+Django provides automatically different shortcuts to filter the 	objects based on the type of the field.
+
+
+Ex:- Field type		Shortcuts of filter the objects
+     -------------------------------------------------	
+     DateField		        Today,
+				Past 7 days,
+				This month,
+				This year
+
+    BooleanField		All
+				Yes
+				No
+
+
+5.date_hierarchy:
+-----------------
+This attribute is specially designed to provide an intelligent date based drill-down navigation just above Action select base.
+
+It accepts a string format not a list( or) tuple.
+
+	admin.py
+	--------
+from django.contrib import admin
+from  .models import customer
+# Register your models here.
+class customerAdmin(admin.ModelAdmin):
+    list_display=["cid","cname","cadd","payment","active"]
+    search_fields=["cadd","payment"]
+    ordering=["payment"]
+    list_filter=["cadd","active"]
+    #date_hierarchy="payment"
+admin.site.register(customer,customerAdmin)
+
+
+

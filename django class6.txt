@@ -1,0 +1,564 @@
+add
+----
+
+	Adds the argument to the value.
+
+	{{ value|add:"2" }}
+
+	If value is 4, then the output will be 6.
+
+addslashes
+-----------
+	Adds slashes before quotes.
+
+	x="I'm using Django"
+	{{ x|addslashes }}
+
+		 "I\'m using Django".
+
+
+center
+-------
+	Centers the value in a field of a given width.
+	
+	x="siva"
+
+	{{ x|center:"9" }}
+
+		"   siva  "
+
+ljust
+------
+Left-aligns the value in a field of a given width.
+
+	x="siva"
+
+	{{ x|ljust:"9" }}
+
+		"siva     "
+
+rjust
+------
+Right-aligns the value in a field of a given width.
+
+	x="siva"
+
+	{{ x|rjust:"9" }}
+
+		"     siva"
+
+cut
+----
+	Removes all values of arg from the given string.
+
+	x="hai siva krishna"
+
+	{{ x|cut:" " }}
+
+		"haisivakrishna"
+
+
+date
+-----
+	Formats a date according to the given format.
+
+	d	---> Day of the month, 2 digits with leading 			             zeros.
+				
+			'01' to '31'
+
+	D	---> Day of the week, textual, 3 letters.	
+
+		        'Mon'  to 'Sun'
+
+	l	---> Day of the week, textual, long.	
+		
+                        'Monday' to 'Sunday'
+
+	m	---> Month, 2 digits with leading zeros.
+	
+			'01' to '12'
+
+	n	---> Month without leading zeros.	
+		
+			'1' to '12'
+
+	M	---> Month, textual, 3 letters.	
+		
+			'Jan'
+
+	b	---> Month, textual, 3 letters, lowercase.	
+		
+			'jan'
+
+	F	---> Month, textual, long.	
+		
+			'January'
+
+	y	---> Year, 2 digits.	
+		
+			'99'
+
+	Y	---> Year, 4 digits.	
+		
+			'1999'
+
+	h	---> Hour, 12-hour format.	
+		
+			'01' to '12'
+
+	H	---> Hour, 24-hour format.	
+		
+			'00' to '23'
+
+	i	---> Minutes.	
+		
+			'00' to '59'
+
+	s	---> Seconds, 2 digits with leading zeros.	
+		
+			'00' to '59'
+
+	u	---> Microseconds.	
+		
+			000000 to 999999
+
+	a	---> 'a.m.' or 'p.m.' 
+		
+			'a.m.'
+
+	A	---> 'AM' or 'PM'.	
+		
+			'AM'
+
+ex:
+---
+import datetime
+now=datetime.datetime.now()
+
+{{ now|date:"D d M Y" }}
+
+	'Tue 24 Aug 2021'
+
+
+{{ now|date:"SHORT_DATE_FORMAT" }} -->'d/m/Y'
+
+	'24/08/2021'
+
+You can combine date with the time filter to render a full representation of a datetime value. E.g.:
+
+{{ value|date:"D d M Y" }} {{ value|time:"H:i" }}
+
+
+dictsort
+--------
+	Takes a list of dictionaries and returns that list sorted by the key given in the argument.
+
+For example:
+
+x=[
+    {'name': 'zed', 'age': 19},
+    {'name': 'amy', 'age': 22},
+    {'name': 'joe', 'age': 31},
+]
+
+	{{ x|dictsort:"name" }}
+
+[
+    {'name': 'amy', 'age': 22},
+    {'name': 'joe', 'age': 31},
+    {'name': 'zed', 'age': 19},
+]
+
+dictsortreversed
+-----------------
+Takes a list of dictionaries and returns that list sorted in reverse order by the key given in the argument.
+	
+divisibleby
+-----------
+	Returns True if the value is divisible by the argument.
+
+	x=21
+	{{ x|divisibleby:"3" }}
+
+		True
+
+	y=25
+
+	{{ y|divisibleby:"3" }}
+
+		False
+
+
+first
+------
+	Returns the first item in a list.
+
+	x=["siva","rama","krishna"]
+
+	{{ x|first }}
+
+		"siva"
+
+last
+-----
+	Returns the last item in a list.
+
+	
+	x=["siva","rama","krishna"]
+
+	{{ x|last }}
+
+		"krishna"
+
+join
+----
+	Joins a list with a string,
+	like Python’s str.join(list)
+
+	x=["D","Siva"]
+
+	{{ x|join:"." }}
+
+	"D.Siva"
+
+length_is
+--------
+	Returns True if the value’s length is the argument, or False otherwise.
+
+	x="siva"
+
+	{{ x|length_is:"4" }}
+
+		True
+
+	y="krishna"
+
+	{{ y|length_is:"6" }}
+
+		False
+
+linenumbers
+------------
+	Displays text with line numbers.
+
+x="""one
+two
+three"""
+
+{{ x|linenumbers }}
+
+1. one
+2. two
+3. three
+
+
+make_list
+---------
+	Returns the value turned into a list.
+
+	x="siva"
+
+	{{ x|make_list }}
+
+		['s','i','v','a']
+
+random
+-------
+	Returns a random item from the given list.
+
+	x=[6,2.3,4j,"siva"]
+	
+	{{ x|random }}
+
+		"siva"
+
+slice
+-----
+	Returns a slice of the list.
+
+	x=[1,2,3,4]
+
+	{{ x|slice:":2" }}
+
+		[1,2]
+
+wordcount
+---------
+	Returns the number of words.
+
+	x="hai siva krishna good evening"
+
+	{{ x|wordcount }}
+
+		5
+
+ex:
+---
+create a djnago project with template filters?
+
+step1:
+----
+to create a project
+
+	django-admin startproject proj14
+
+step2:
+-----
+goto project location and to create an application in the project.
+
+	cd proj14
+
+	python manage.py startapp app14
+
+step3:
+----
+to install our application in the settings.py file of the project
+
+	settings.py
+	----------
+INSTALLED_APPS = [
+    
+    'app14'
+]
+
+
+step4:
+----
+to create a templates and to set the path for our templates in the settings.py file of the project.
+
+	settings.py
+	-----------
+TEMPLATES = [
+    {
+       
+        'DIRS': [BASE_DIR,'templates'],        
+    },
+]
+
+step5:
+-----
+to create a views in the views.py file of the application.
+
+	views.py
+	--------
+from django.shortcuts import render
+from datetime import datetime
+# Create your views here.
+def welcome(request):
+    x=datetime.now()
+    message="hai siva krishna good evening"
+    number=24
+    employees=[{"eid":101,"ename":"siva","sal":2000},
+               {"eid":102,"ename":"rama","sal":4000},
+               {"eid":103,"ename":"krishna","sal":3000}
+               ]
+    name="siva"
+    return render(request,'display.html',
+                  {'cdt':x,'msg':message,'num':number,
+                   'emp':employees,'n':name})
+
+
+	display.html
+	-----------
+<html>
+<head>
+</head>
+<body>
+<h1>{{cdt}}</h1>
+<h1>{{cdt|date:"F l Y"}}</h1>
+<h1>{{msg|title}}</h1>
+<h1>{{msg|upper}}</h1>
+<h1>{{msg|capfirst}}</h1>
+<h1>{{msg|make_list}}</h1>
+<h1>{{msg|cut:" "}}</h1>
+<h1>{{msg|length}}</h1>
+<h1>{{msg|truncatewords:"2"}}</h1>
+<h1>{{msg|truncatechars:"15"}}</h1>
+<h1>{{num|divisibleby:"3"}}</h1>
+<h1>{{num|add:"2"}}</h1>
+<h1>{{emp|dictsort:"ename"}}</h1>
+<h1>{{emp|dictsortreversed:"ename"}}</h1>
+<h1>{{n|length_is:"4"}}</h1>
+</body>
+</html>
+
+step6:
+------
+to configure the url patterns for our views in the urls.py file of the project.
+
+	urls.py
+	-------
+from django.contrib import admin
+from django.urls import path
+from app14 import views
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('res/',views.welcome)
+]
+
+step7:
+----
+to apply the migrations
+
+	python manage.py migrate
+
+step8:
+-----
+to start the server
+
+	python manage.py runserver
+
+step9:
+-----
+to send the request to the server
+
+	http://127.0.0.1:8000/res
+
+
+structure:
+---------
+	proj14
+	   |--->app14
+	   |      |--->views.py
+	   |--->proj14
+	   |      |--->settings.py
+	   |      |--->urls.py
+	   |--->templates
+	   |      |--->display.html
+	   |--->manage.py
+
+
+ex:
+---
+create a djnago project with template tags?
+
+step1:
+-----
+to create a django project
+
+	django-admin startproject proj15
+
+step2:
+-----
+goto project location and to create an application in the project location.
+
+	cd proj15
+
+	python manage.py startapp app15
+
+step3:
+----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	-----------
+INSTALLED_APPS = [
+    
+    'app15'
+]
+
+step4:
+-----
+to create a templates and to set the path for our templates in the settings.py file of the project.
+
+	settings.py
+	-----------
+TEMPLATES = [
+    {
+      
+        'DIRS': [BASE_DIR,'templates'],        
+    },
+]
+
+
+step5:
+----
+to create a views in the views.py file of the application.
+
+	views.py
+	--------
+from django.shortcuts import render
+from datetime import datetime
+# Create your views here.
+def welcome(request):
+    x=datetime.now()
+    y=x.day
+    employees=["siva","rama","krishna"]
+    context={'day':y,'emp':employees}
+    return render(request,'display.html',context)
+
+	display.html
+	-----------
+<html>
+<head>
+</head>
+<body>
+{# to verify the date by using conditional statements #}
+{% if day <= 7 %}
+    <h1>we are in first weak of this month</h1>
+{% elif day > 8 and day <= 14 %}
+    <h1>we are in second weak of this month</h1>
+{% elif day > 14 and day <= 21 %}
+    <h1>we are in third weak of this month</h1> 
+{% elif day > 21 and day <= 28 %}
+    <h1>we are in fourth weak of this month</h1>  
+{% else %}
+    <h1>we are in fifth weak of this month</h1>
+{% endif %}
+{% comment %}
+  we can get the one by one employe names
+  and to print that employe names by using capfirst filter
+{% endcomment %}
+{% for e in emp %}
+    {{e|capfirst}}<br>
+{% endfor %}
+</body>
+</html>
+
+step6:
+-----
+to configure the url patterns for our views in the urls.py file of the project.
+
+	urls.py
+	-------
+from django.contrib import admin
+from django.urls import path
+from app15 import views
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('res/',views.welcome)
+]
+
+step7:
+----
+to apply the migrations
+
+	python manage.py migrate
+
+step8:
+-----
+to start the server
+
+	python manage.py runserver
+
+step9:
+-----
+to send the request to the server
+
+	http://127.0.0.1:8000/res
+
+structure:
+---------
+	proj15
+	   |--->app15
+	   |      |--->views.py
+	   |--->proj15
+	   |      |--->settings.py
+	   |      |--->urls.py
+	   |--->templates
+	   |      |--->display.html
+	   |--->manage.py
+
+
+
+

@@ -1,0 +1,393 @@
+ex:
+---
+create a django project to read the data from the user input,to perform the addition operation and to display the result on the webbrowser by using post()?
+
+step1:
+----
+to create a project
+
+	django-admin startproject proj9
+
+step2:
+-----
+goto project location and to create an appplication in our project.
+
+	cd proj9
+
+	python manage.py startapp app9
+
+step3:
+-----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	----------
+INSTALLED_APPS = [
+    
+    'app9'
+]
+
+
+step4:
+-----
+to create a templates and to set the path for our templates in the settings.py file of the project.
+
+	settings.py
+	-----------
+TEMPLATES = [
+    {
+       
+        'DIRS': [BASE_DIR,'templates'],        
+    },
+]
+
+step5:
+----
+to create a views in the views.py file of the application
+		
+	views.py
+	--------
+from django.shortcuts import render
+from django.http import HttpResponse
+# Create your views here.
+def input(request):
+    return render(request,'input.html')
+def addition(request):
+    a=int(request.POST['fn'])
+    b=int(request.POST['sn'])
+    c=a+b
+    return HttpResponse("the sum is:"+str(c))
+    
+
+	input.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body bgcolor="orange">
+<form action="add" method="post">
+Enter First Number:
+<input type="text" name="fn"><br><br>
+Enter Second Number:
+<input type="text" name="sn"><br><br>
+<input type="submit" value="sum">
+</form>
+</body>
+</html>
+
+step6:
+----
+to configure the url pattern for our views in the urls.py file of the project.
+
+	urls.py
+	--------
+from django.contrib import admin
+from django.urls import path
+from app9 import views
+from django.conf.urls import url
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('in/',views.input),
+    url('add',views.addition)
+]
+
+step7:
+----
+to apply the migrate
+
+	python manage.py migrate
+step8:
+-----
+to start the server
+
+	python manage.py runserver
+
+step9:
+----
+to send the request to the server
+
+	http://127.0.0.1:8000/in
+error:
+------
+CSRF verification failed. Request aborted.
+
+CSRF(Cross Site Request Forgery) is an attacker,we can prevent our web-applications from these attackers to add csrf_token tag in our html file at the time of using post()
+
+	updated html file (input.html)
+	-----------------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body bgcolor="orange">
+<form action="add" method="post">
+{% csrf_token %}
+Enter First Number:
+<input type="text" name="fn"><br><br>
+Enter Second Number:
+<input type="text" name="sn"><br><br>
+<input type="submit" value="sum">
+</form>
+</body>
+</html>
+
+ex:
+---
+create a django project to read the data from the user input,to perform the addition operation and to display the result on the webbrowser by using both get() and post()?
+
+step1:
+----
+to create a project
+
+	django-admin startproject proj10
+
+step2:
+-----
+goto project location and to create an appplication in our project.
+
+	cd proj10
+
+	python manage.py startapp app10
+
+step3:
+-----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	----------
+INSTALLED_APPS = [
+    
+    'app10'
+]
+
+
+step4:
+-----
+to create a templates and to set the path for our templates in the settings.py file of the project.
+
+	settings.py
+	-----------
+TEMPLATES = [
+    {
+       
+        'DIRS': [BASE_DIR,'templates'],        
+    },
+]
+
+step5:
+----
+to create a views in the views.py file of the application
+		
+	views.py
+	--------
+from django.shortcuts import render
+from django.http import HttpResponse
+# Create your views here.
+def ginput(request):
+    return render(request,'ginput.html')
+
+def pinput(request):
+    return render(request,'pinput.html')
+
+
+def addition(request):
+    if request.method=='GET':
+        a=int(request.GET['fn'])
+        b=int(request.GET['sn'])
+        c=a+b
+        return HttpResponse("The Sum is:"+str(c))
+    else:
+        a=int(request.POST['fn'])
+        b=int(request.POST['sn'])
+        c=a+b
+        return HttpResponse(c)
+ 
+	ginput.html
+	-----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body bgcolor="orange">
+<form action="add">
+Enter First Number:
+<input type="text" name="fn"><br><br>
+Enter Second Number:
+<input type="text" name="sn"><br><br>
+<input type="submit" value="sum">
+</form>
+</body>
+</html>
+
+	pinput.html
+	-----------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body bgcolor="powderblue">
+<form action="add" method="post">
+{% csrf_token %}
+Enter First Number:
+<input type="text" name="fn"><br><br>
+Enter Second Number:
+<input type="text" name="sn"><br><br>
+<input type="submit" value="sum">
+</form>
+</body>
+</html>
+
+step6:
+----
+to configure the url patterns for our views in the urls.py file of the project.
+
+	urls.py
+	-------
+from django.contrib import admin
+from django.urls import path
+from app10 import views
+from django.conf.urls import url
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('gin/',views.ginput),
+    url('add',views.addition),
+    path('pin/',views.pinput)
+]
+
+step7:
+-----
+to apply the migrations
+
+	python manage.py migrate
+
+step8:
+----
+to start the server
+
+	python manage.py runserver
+
+step9:
+-----
+to send the request to the server
+
+	http://127.0.0.1:8000/gin
+	http://127.0.0.1:8000/pin
+
+structure:
+---------
+	proj10
+	   |--->app10
+	   |      |--->views.py
+	   |--->proj10
+	   |      |--->settings.py
+	   |      |--->urls.py
+	   |--->templates
+	   |      |--->ginput.html
+	   |      |--->pinput.html
+	   |--->manage.py
+
+
+note:
+-----
+in function based view's we can implement the different httprequest methods by using conditional statements.
+
+to implement the views by using another alternative way that is called class-based views.
+
+class based views:
+------------------
+	we can implement the views by using class,that type of views are called class based views.
+
+	we can create any class as a view in that case our class is extending by View class of generic module.
+
+	the View class internally provides every HttpRequest methods seperately.       
+        
+ex:
+----
+create a class based view to display the hello world message on the web-browser?
+
+step1:
+----
+to create a project
+
+	django-admin startproject proj11
+
+step2:
+-----
+goto project location and to create an appplication in our project.
+
+	cd proj11
+
+	python manage.py startapp app11
+
+step3:
+-----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	----------
+INSTALLED_APPS = [
+    
+    'app11'
+]
+
+step4:
+----
+to create views in views.py file of the application
+
+	views.py
+	-------
+#from django.shortcuts import render
+from django.views.generic import View
+from django.http import HttpResponse
+# Create your views here.
+class welcome(View):
+    def get(self,request):
+        return HttpResponse("hello world")
+
+step5:
+----
+to configure the url patterns for our views in the urls.py file of the project
+
+	urls.py
+	---------
+from django.contrib import admin
+from django.urls import path
+from app11.views import welcome
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('wel/',welcome.as_view())
+]
+
+step6:
+----
+to apply the migrations
+
+	python manage.py migrate
+
+step7:
+----
+to start the server
+
+	python manage.py runserver
+
+step8:
+-----
+to send the request to the server
+
+	http://127.0.0.1:8000/wel
+
+structure:
+---------
+	proj11
+	   |--->app11
+	   |      |--->views.py
+	   |--->proj11
+	   |      |--->settings.py
+	   |      |--->urls.py
+	   |--->manage.py
+
+
+

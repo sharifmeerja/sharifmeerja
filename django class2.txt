@@ -1,0 +1,392 @@
+what is View?
+-------------
+	a view is a python function or class,which is used to represent the business logics.
+
+	a view takes the request from the enduser/client,process that request and give back the response to the enduser/client.
+
+	we can implement the views in two way's,they are
+
+	1).Function Based views
+
+	2).Class Based views
+
+Function Based views:
+---------------------
+	we can implement the views by using functions,that type of views are called Function based views.
+
+	whenever we are sending the request internally our django engine takes that request,that request is passing to url-dispatcher.
+
+	we can verify that url request is valid or not,wheather it is valid to create request object,that request object is passing to view function and that view function is executed otherwise to raise 404 webpage is not available message on the web browser.
+
+	in function based views we can implement the different http methods like get(),post(),put(),delete(),trace(),move(),...by using conditional statements.
+
+ex3:
+---
+create a django project to display current system date and time on the webbrowser?
+
+step1:
+-----
+to create a project
+
+	django-admin startproject proj3
+
+step2:
+----
+goto project location and to create an application in our project.
+
+	cd proj3
+
+	python manage.py startapp app3
+
+step3:
+----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	----------
+INSTALLED_APPS = [
+    
+    'app3'
+]
+
+step4:
+----
+to create a views in the views.py file of the application.
+
+	views.py
+	--------
+#from django.shortcuts import render
+from django.http import HttpResponse
+from datetime import datetime
+# Create your views here.
+def dateandtime(request):
+    x=datetime.now()
+    return HttpResponse("The current System Date\
+ and Time is:"+str(x))
+
+step5:
+-----
+to configure the url pattern for our views in the urls.py file of the project.
+
+	urls.py
+	-------
+from django.contrib import admin
+from django.urls import path
+from app3 import views
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('cdt/',views.dateandtime)
+]    
+
+step6:
+-----
+to apply the migrations
+
+	python manage.py migrate
+
+step7:
+------
+to start the server
+
+	python manage.py runserver
+
+step8:
+------
+to send the request to the server
+
+	http://127.0.0.1:8000/cdt
+
+structure:
+-----------
+	proj3
+	   |--->app3
+	   |      |--->views.py
+	   |--->proj3
+	   |      |--->settings.py
+	   |      |--->urls.py
+	   |--->manage.py
+
+ex4:
+---
+create a django project single app with multiple views?
+
+step1:
+-----
+to create a project
+
+	django-admin startproject proj4
+
+step2:
+----
+goto project location and to create an application in our project.
+
+	cd proj4
+
+	python manage.py startapp app4
+
+step3:
+----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	----------
+INSTALLED_APPS = [
+    
+    'app4'
+]
+
+step4:
+----
+to create a views in the views.py file of the application.
+
+	views.py
+	--------
+#from django.shortcuts import render
+from django.http import HttpResponse
+# Create your views here.
+def welcome(request):
+    return HttpResponse("<h1>hello world</h1>")
+def morning(request):
+    return HttpResponse("<h1>Good Morning Siva</h1>")
+def afternoon(request):
+    return HttpResponse("<h1>Good Afternoon Siva</h1>")
+def evening(request):
+    return HttpResponse("<h1>Good Evening Siva</h1>")
+def night(request):
+    return HttpResponse("<h1>Good Night Siva</h1>")
+
+
+step5:
+-----
+to configure the url pattern for our views in the urls.py file of the project.
+
+	urls.py
+	-------
+from django.contrib import admin
+from django.urls import path
+from app4 import views
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('',views.welcome),
+    path('gm/',views.morning),
+    path('ga/',views.afternoon),
+    path('ge/',views.evening),
+    path('gn/',views.night)
+]
+
+
+step6:
+-----
+to apply the migrations
+
+	python manage.py migrate
+
+step7:
+------
+to start the server
+
+	python manage.py runserver
+
+step8:
+------
+to send the request to the server
+
+	http://127.0.0.1:8000/
+	http://127.0.0.1:8000/gm
+	http://127.0.0.1:8000/ga
+		...
+		...
+
+
+
+structure:
+-----------
+	proj4
+	   |--->app4
+	   |      |--->views.py
+	   |--->proj4
+	   |      |--->settings.py
+	   |      |--->urls.py
+	   |--->manage.py
+
+
+ex5:
+---
+create a django project with multiple applications?
+
+step1:
+-----
+to create a project
+
+	django-admin startproject proj5
+
+step2:
+----
+goto project location and to create an application in our project.
+
+	cd proj5
+
+	python manage.py startapp wishesapp
+	
+	python manage.py startapp timeapp	
+
+step3:
+----
+to install our application in the settings.py file of the project.
+
+	settings.py
+	----------
+INSTALLED_APPS = [
+    
+    'wishesapp',
+    'timeapp'
+]
+
+step4:
+----
+to create a views in the views.py file of the application.
+
+	wishesapp/views.py
+	------------------
+#from django.shortcuts import render
+from django.http import HttpResponse
+# Create your views here.
+def welcome(request):
+    return HttpResponse("hello world")
+
+	timeapp/views.py
+	-----------------
+#from django.shortcuts import render
+from django.http import HttpResponse
+from datetime import datetime
+# Create your views here.
+def dateandtime(request):
+    x=datetime.now()
+    return HttpResponse("The current System Date\
+ and Time is:"+str(x))
+
+step5:
+-----
+to configure the url patterns for our views in the urls.py file of the project.
+
+	urls.py
+	-------
+from django.contrib import admin
+from django.urls import path
+from wishesapp import views
+from timeapp import views
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('wel/',views.welcome),
+    path('cdt/',views.dateandtime)
+]
+
+step6:
+	to apply the migrations
+
+	python manage.py migrate
+
+AttributeError: module 'timeapp.views' has no attribute 'welcome'
+
+scenario-1
+----------
+	urls.py
+	-------
+from django.contrib import admin
+from django.urls import path
+from wishesapp.views import welcome
+from timeapp.views import dateandtime
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('wel/',welcome),
+    path('cdt/',dateandtime)
+]
+
+scenario-2
+-----------
+	urls.py
+	------
+from django.contrib import admin
+from django.urls import path
+import wishesapp.views as v1
+import timeapp.views as v2
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('wel/',v1.welcome),
+    path('cdt/',v2.dateandtime)
+]
+
+step7:
+-----
+to start the server
+
+	python manage.py runserver
+
+step8:
+-----
+to send the request to the server
+
+	http://127.0.0.1:8000/wel
+	http://localhost:8000/cdt
+
+structure:
+----------
+	proj5
+	   |--->wishesapp
+	   |      |--->views.py
+	   |--->timeapp
+	   |      |--->views.py
+	   |--->proj5
+	   |      |--->settings.py
+	   |      |--->urls.py
+	   |--->manage.py
+
+ex:
+---
+Including another URLconf i.e., to create urls in our application level next we can include that urls into our project?
+
+	wishesapp/urls.py
+	------------------
+from django.urls import path
+from wishesapp import views
+urlpatterns=[
+    path('wel/',views.welcome)
+    ]
+
+	timeapp/urls.py
+	---------------
+from django.urls import path
+from timeapp import views
+urlpatterns=[
+    path('cdt/',views.dateandtime)
+    ]
+
+	proj5/urls.py
+	-------------
+from django.contrib import admin
+from django.urls import path,include
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('wishes/',include('wishesapp.urls')),
+    path('time/',include('timeapp.urls'))
+]
+
+note:
+---
+	http://127.0.0.1:8000/wishes/wel
+	http://127.0.0.1:8000/time/cdt
+
+structure:
+----------
+	proj5
+	   |--->wishesapp
+	   |      |--->views.py
+	   |      |--->urls.py
+	   |--->timeapp
+	   |      |--->views.py
+	   |      |--->urls.py
+	   |--->proj5
+	   |      |--->settings.py
+	   |      |--->urls.py
+	   |--->manage.py
+

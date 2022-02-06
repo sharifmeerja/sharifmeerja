@@ -1,0 +1,383 @@
+ex1:
+---
+	animated.html
+	------------
+<html>
+<head>
+<title></title>
+<style>
+*{
+margin:0; padding:0; boxsizing:border-box;
+}
+
+header{
+width: 100%; height: 100vh;
+background-color: white;
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+nav{
+width: 100%; height: 15vh;
+background: black;
+display: flex; justify-content: space-between;
+align-items: center;
+}
+
+nav .mainmenu{
+width: 40%;
+display: flex; justify-content: space-around;
+}
+
+main{
+width: 100%; height: 85vh;
+display: flex; justify-content: center;
+align-items: center;
+text-align: center;
+}
+
+section h3{
+letter-spacing: 3px; font-weight: 200;
+}
+
+section h1{
+text-transform: uppercase;
+}
+
+section div{
+animation:changeborder 10s infinite linear;
+border: 7px solid red;
+}
+
+</style>
+</head>
+<body>
+<header>
+<nav>
+<div class = "logo" <h3 style="color:white;">MYLOGO</h3></div>
+<div class = "mainmenu">
+<a href="http://www.vagdevitechnologies.com/">Home</a>
+<a href="https://www.instagram.com/accounts/login/">About Us</a>
+<a href="https://sivapython.blogspot.com/">Contact Us</a>
+</div>
+</nav>
+<main>
+<section>
+<div class = "change_text"><b>Welcome To Vagdevi Technologies</b></div>
+<p><i>All your career needs in one place</i></p><br>
+<input type = button value = "view more">
+</section>
+</main>
+</header>
+</body>
+</html>
+
+ex2:
+---
+	registrationform.html
+	--------------------
+<!DOCTYPE HTML>
+<!-- This is how HTML comments look like -->
+<html>
+<head>
+<title>Employee Interests Survey</title>
+</head>
+<body>
+
+<form action="http://www.vagdevitechnologies.com/">
+<div align="center">
+<h1>Employee Interests Survey form</h1>
+Enter your name:
+<input type="text" name="UserName" size=35 maxlength=35 value="">
+</br></br>
+Enter your department:
+<input type="text" name="Deptt" size=35 maxlength=35 value=""> </br> </br>
+Tell us a little about yourself:
+<textarea name="Comments" cols=30 rows=4></textarea> </br> </br>
+Do you exercise at home?
+<input type="radio" name="exe" value=1>Yes
+<input type="radio" name="exe" value=2>No
+</p>
+How do you like to read about your favorite topics?
+<p>
+<input type="checkbox" name="Books">Books
+<input type="checkbox" name="Web">Online resources
+<input type="checkbox" name="Phone">Phone apps
+<input type="checkbox" name="Magazines">Magazines
+</p>
+What genre of movies do you like?
+<select name="moviepref" ><option>
+<option value=1 selected = "true">comedy
+<option value=2 >romance
+<option value=3 >thriller
+<option value=4 >horror
+<option value=5 >biopic
+</select>
+</br></br>
+<input type=submit value="Submit form">
+</div>
+</form>
+</body>
+</html>
+
+
+		JavaScript
+		----------
+	JavaScript is a object-based scripting programming language.
+
+	it is a interpreted language
+
+	it is used to create interactive websites.
+
+applications of javascript:
+--------------------------
+	client-side validations
+	display the date and time
+	pop-up,alert messages
+	...
+	...
+
+we can implement the javascript code in 3-ways,they are
+
+	1).script tag in our html tag of body of the webpage
+		(inline javascript)/between the body tag
+                              
+
+	2).script tag in our head of the webpage
+		(internal javascript)/between the headtag
+
+	3).to create seperate javascript file
+			(external javascript)
+
+ex: inline javscript
+----
+	demo1.html
+	---------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<script>
+   alert("hello world");
+</script>
+</body>
+</html>
+
+	demo2.html
+	---------
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<script>
+   document.write("hello world");
+</script>
+</body>
+</html>
+
+ex2: Internal Javascript
+---
+	demo3.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+   document.write("hello siva");
+</script>
+</head>
+<body>
+</body>
+</html>
+
+	demo4.html
+	---------
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+   alert("hello siva");
+</script>
+</head>
+<body>
+</body>
+</html>
+
+ex3: External Javascript
+----
+
+	demo5.html
+	---------
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="sample.js">  
+</script>
+</head>
+<body>
+</body>
+</html>
+
+	sample.js
+	---------
+alert("hello krishna");
+
+	(or)
+	
+	sample.js
+	---------
+document.write("hello siva krishna");
+
+
+ex4: variables
+----
+	demo6.html
+	----------
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="sample.js">  
+</script>
+</head>
+<body>
+</body>
+</html>
+
+	sample.js
+	----------
+var name="siva";
+var age=29;
+var sal=3000.00;
+document.write("Name:"+name+' '+"Age: "+age+' '+"Salary: "+sal);
+
+	(or)
+
+	sample.js
+	--------
+let name="rama";
+let age=29;
+let sal=3000.00;
+document.write("Name:"+name+' '+"Age: "+age+' '+"Salary: "+sal);
+
+ex5: conditional statements --> if
+---
+
+	sample.js
+	--------
+let name="rama";
+let age=29;
+let sal=3000.00;
+if(age==30)
+{
+document.write("Name:"+name+' '+"Age: "+age+' '+"Salary: "+sal);
+}
+
+ex6: if else
+---
+	sample.js
+	----------
+let name="rama";
+let age=29;
+let sal=3000.00;
+if(age==30)
+{
+document.write("Name:"+name+' '+"Age: "+age+' '+"Salary: "+sal);
+}
+else
+{
+document.write("bye")
+}
+
+ex7: if-else if-else
+----
+
+	sample.js
+	--------
+let name="rama";
+let age=29;
+let sal=3000.00;
+if(age==30)
+{
+document.write("Name:"+name+' '+"Age: "+age+' '+"Salary: "+sal);
+}
+else if(name=="rama")
+{
+document.write("Name:"+name+' '+"Age: "+age+' '+"Salary: "+sal);
+}
+else
+{
+document.write("bye");
+}
+
+ex8: while loop
+----
+	sample.js
+	---------
+let name="rama";
+let age=29;
+let sal=3000.00;
+let i=5
+while(i<=age)
+{
+document.write("Name:"+name+' '+"Age: "+age+' '+"Salary: "+sal);
+i+=5;
+}
+
+ex9: do-while
+---
+
+	sample.js
+	---------
+let name="rama";
+let age=4;
+let sal=3000.00;
+let i=5
+do
+{
+document.write("Name:"+name+' '+"Age: "+age+' '+"Salary: "+sal);
+}while(i<=age);
+
+ex10: for loop
+-----
+
+	sample.js
+	---------
+for(let i=1;i<=10;i++)
+{
+document.writeln("hello world"+' '+i);
+}
+
+ex11:
+----
+write javascript program to read the data from the user input and to display that result on the webpage?
+
+	demo.html
+	--------
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+    function add(){
+	var a=parseInt(document.getElementById('fn').value);
+	var b=parseInt(document.getElementById('sn').value);
+	var c=a+b;
+	document.getElementById('addition').value=c;
+      }
+</script>
+</head>
+<body>
+Enter First Number:
+<input type="text" id='fn'><br><br>
+Enter Second Number:
+<input type="text" id='sn'><br><br>
+<button onclick=add()>add</button><br><br>
+Result:
+<input type="text" id="addition">
+</body>
+</html>
+
+
+
+
